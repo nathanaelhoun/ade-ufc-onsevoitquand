@@ -15,17 +15,17 @@ export function makeGetEdt(groupId) {
 
 		const byDay = rawData
 			.split("*date*;")
-			.filter((line) => /\S/.test(line))
+			.filter((line) => /\S/.test(line)) // remove empty lines
 			.reduce((acc, dayData) => {
 				const byLine = dayData.split("\n");
-				const date = byLine[0];
-				const coursDuJour = byLine
+				const day = byLine[0];
+				const dayActivities = byLine
 					.slice(1)
 					.filter((line) => /\S/.test(line))
 					.map((line) => line.substring(line.indexOf(";") + 1)) // remove the color
-					.map((line) => line.split(":")).map((el) => {console.log(el); return el});
+					.map((line) => line.split(":"));
 
-				acc[date] = coursDuJour;
+				acc[day] = dayActivities;
 
 				return acc;
 			}, {});
