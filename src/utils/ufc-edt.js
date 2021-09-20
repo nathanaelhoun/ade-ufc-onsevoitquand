@@ -13,22 +13,28 @@ export function makeGetEdt(groupId) {
 			)
 		).data;
 
-		const byDay = rawData
+		const byDay = {};
+
+		rawData
 			.split("*date*;")
 			.filter((line) => /\S/.test(line)) // remove empty lines
-			.reduce((acc, dayData) => {
+			.forEach((dayData) => {
 				const byLine = dayData.split("\n");
+
 				const day = byLine[0];
 				const dayActivities = byLine
-					.slice(1)
-					.filter((line) => /\S/.test(line))
-					.map((line) => line.substring(line.indexOf(";") + 1)) // remove the color
-					.map((line) => line.split(":"));
+					.slice(1) // remove day
+					.filter((line) => /\S/.test(line)) // remove empty lines
+					.reduce((acc, line) => {
+						const [decimalColor, content, where] = line.split(";");
+						const hexColor =
+							"#" + parseInt(decimalColor, 10).toString(16).padStart(6, "0");
+						const [when, what] = content.split(":");
+						return [...acc, { hexColor, when, what: what.trim(), where }];
+					}, []);
 
-				acc[day] = dayActivities;
-
-				return acc;
-			}, {});
+				byDay[day] = dayActivities;
+			});
 
 		return byDay;
 	};

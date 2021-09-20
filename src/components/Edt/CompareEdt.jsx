@@ -88,8 +88,15 @@ const ShowDay = ({ groupIds, day, dayInformations }) => {
 					<ul>
 						{edt &&
 							edt.map((line) => (
-								<li key={`line-${index}-${line}`}>
-									{line[0]} {line[1].split(";")[0]}
+								<li
+									key={`line-${day}-group-${groupIds[index]}-${line.when}-${line.what}`}
+									className="not-available"
+									title={line.where}
+									style={{
+										backgroundColor: line.hexColor,
+									}}
+								>
+									{line.when} {line.what}
 								</li>
 							))}
 					</ul>
