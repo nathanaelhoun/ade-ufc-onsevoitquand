@@ -6,7 +6,7 @@ import CompareEdt from "./components/Edt/CompareEdt";
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<CompareEdt groupIds={[15914, 12693]} />
+			<CompareEdt groupIds={[15914, 11603]} />
 		</QueryClientProvider>
 	);
 }
