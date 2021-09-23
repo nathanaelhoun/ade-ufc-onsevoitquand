@@ -1,0 +1,27 @@
+table.schedule {
+	table-layout: fixed;
+
+	td,
+	th {
+		$padding: 0.2em;
+		padding-left: $padding;
+		padding-right: $padding;
+	}
+
+	.title-time {
+		width: 5ch;
+		text-align: right;
+	}
+}
+
+.activity-item {
+	overflow: hidden;
+}
+
+.activity-item.available {
+	background-color: lightgreen;
+}
+
+.activity-item.not-available {
+	opacity: 0.5;
+}

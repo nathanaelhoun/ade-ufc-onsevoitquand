@@ -4,6 +4,7 @@ import "./CompareEdt.scss";
 import { makeGetEdt } from "../../utils/ufc-edt";
 import Loading from "../miscellaneous/Loading";
 import Error from "../miscellaneous/Error";
+import ShowEdtDay, { ShowEdtDayContent, ShowEdtDayHeader } from "./ShowEdtDay";
 
 function compareDates(date1, date2) {
 	const frenchMonthes = [
@@ -51,58 +52,35 @@ const CompareEdt = ({ groupIds }) => {
 	const allData = all.map((edt) => edt.data);
 	const allDays = [...new Set(allData.flatMap(Object.keys))].sort(compareDates);
 
+	const byDays = allDays.reduce((acc, day) => {
+		return {
+			...acc,
+			[day]: allData.reduce(
+				(acc, groupSchedule, index) => ({
+					...acc,
+					[groupIds[index]]: groupSchedule[day],
+				}),
+				{}
+			),
+		};
+	}, {});
+
 	return (
 		<div className="compare-edt">
-			<table>
-				<thead>
-					<tr>
-						<th>Jour</th>
-						{groupIds.map((group) => (
-							<th key={`title-${group}`}>{group}</th>
-						))}
-					</tr>
-				</thead>
-
-				<tbody>
-					{allDays.map((day) => (
-						<tr key={`day-${day}`}>
-							<ShowDay
-								day={day}
-								groupIds={groupIds}
-								dayInformations={allData.map((groupEdt) => groupEdt[day])}
-							/>
-						</tr>
-					))}
-				</tbody>
-			</table>
+			{Object.keys(byDays).map((day) => (
+				<ShowDay key={`day-${day}`} day={day} dayInformations={byDays[day]} />
+			))}
 		</div>
 	);
 };
 
-const ShowDay = ({ groupIds, day, dayInformations }) => {
+const ShowDay = ({ day, dayInformations }) => {
 	return (
-		<>
-			<td>{day}</td>
-			{dayInformations.map((edt, index) => (
-				<td key={`${day}-group-${groupIds[index]}`}>
-					<ul>
-						{edt &&
-							edt.map((line) => (
-								<li
-									key={`line-${day}-group-${groupIds[index]}-${line.when}-${line.what}`}
-									className="not-available"
-									title={line.where}
-									style={{
-										backgroundColor: line.hexColor,
-									}}
-								>
-									{line.when} {line.what}
-								</li>
-							))}
-					</ul>
-				</td>
-			))}
-		</>
+		<div className="day-schedule-comparison">
+			<h3>{day}</h3>
+
+			<ShowEdtDay dayInformations={dayInformations} />
+		</div>
 	);
 };
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function makeGetEdt(groupId) {
 	return async () => {
-		const days = 61;
+		const days = 14;
 		const mode = 3;
 		const color = 1;
 		const sports = "0";
@@ -30,7 +30,19 @@ export function makeGetEdt(groupId) {
 						const hexColor =
 							"#" + parseInt(decimalColor, 10).toString(16).padStart(6, "0");
 						const [when, what] = content.split(":");
-						return [...acc, { hexColor, when, what: what.trim(), where }];
+
+						const [startTime, endTime] = when.split("-");
+
+						const newActivity = {
+							hexColor,
+							when,
+							what: what.trim(),
+							where: where.replace(/^ *\* +/g, ''),
+							startTime: startTime.trim(),
+							endTime: endTime.trim(),
+						};
+
+						return [...acc, newActivity];
 					}, []);
 
 				byDay[day] = dayActivities;
