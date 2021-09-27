@@ -2,8 +2,8 @@ import "./App.scss";
 import { React } from "react";
 import { QueryClientProvider } from "react-query";
 
-import CompareEdt from "./components/Edt/CompareEdt";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
+import CompareSchedule from "./components/Schedule/CompareSchedule";
 import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
@@ -20,7 +20,7 @@ function App() {
         }}
       />
 
-      <CompareEdt groups={groups} />
+      <CompareSchedule groups={groups} />
     </QueryClientProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import React, { useMemo } from "react";
 
-import "./ShowEdtDay.scss";
+import "./ShowScheduleDay.scss";
 
 const times = [
   "8h",

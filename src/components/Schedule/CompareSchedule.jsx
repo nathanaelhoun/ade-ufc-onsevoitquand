@@ -2,7 +2,7 @@ import { PropTypes } from "prop-types";
 import React from "react";
 import { useQueries } from "react-query";
 
-import "./CompareEdt.scss";
+import "./CompareSchedule.scss";
 import { compareDates, makeGetEdt } from "../../utils/ufc-edt";
 import Error from "../miscellaneous/Error";
 
