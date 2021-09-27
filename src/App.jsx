@@ -1,14 +1,24 @@
 import "./App.scss";
+import queryString from "query-string";
 import { React } from "react";
 import { QueryClientProvider } from "react-query";
 
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
+import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {
   const [groups, setGroups] = useLocalStorage("saved-groups", {});
+
+  // Initial loading
+  if (window.location.search !== "") {
+    const { groups: JSONGroups } = queryString.parse(window.location.search);
+    const groups = JSON.parse(JSONGroups);
+    setGroups((oldGroups) => ({ ...oldGroups, ...groups }));
+    window.location.search = "";
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -19,6 +29,8 @@ function App() {
           setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
         }}
       />
+
+      <ShareUrl groups={groups} />
 
       <CompareSchedule groups={groups} />
     </QueryClientProvider>
