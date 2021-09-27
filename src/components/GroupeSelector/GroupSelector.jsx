@@ -62,7 +62,9 @@ const GroupSelector = ({ initialID, addGroup }) => {
         )}
 
         {groupList.map((el) => (
-          <option value={el.id}>{el.name}</option>
+          <option key={el.id} value={el.id}>
+            {el.name}
+          </option>
         ))}
       </select>
     </div>

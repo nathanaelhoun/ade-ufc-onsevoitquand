@@ -73,102 +73,52 @@ const ShowEdtDay = ({ dayInformations }) => {
 
   return (
     <table className="schedule">
-      <tr>
-        <th className="title-time"></th>
-        {Object.keys(dayInformations).map((groupId) => (
-          <th className="title-group">{groupId}</th>
-        ))}
-      </tr>
-
-      {times.slice(firstTimeIndex, lastTimeIndex).map((time, index) => (
+      <tbody>
         <tr>
-          <th className="title-time">{time}</th>
-
-          {Object.keys(dayInformations).map((groupId) => {
-            const activity = computedDaySchedule[groupId][index];
-
-            if (activity === false) {
-              return <></>;
-            }
-
-            if (activity === null) {
-              return <td key={times[index]} className="activity-item available"></td>;
-            }
-
-            return (
-              <td
-                key={times[index]}
-                className="activity-item not-available"
-                title={`${activity.what} ${activity.where}`}
-                style={{
-                  backgroundColor: activity.hexColor,
-                }}
-                rowSpan={activity.duration ?? 1}
-              >
-                {activity.what} <span style={{ whiteSpace: "nowrap" }}>({activity.where})</span>
-              </td>
-            );
-          })}
+          <th className="title-time"></th>
+          {Object.keys(dayInformations).map((groupId) => (
+            <th key={`group-id-${groupId}`} className="title-group">
+              {groupId}
+            </th>
+          ))}
         </tr>
-      ))}
+
+        {times.slice(firstTimeIndex, lastTimeIndex).map((time, index) => (
+          <tr key={`row-${time}`}>
+            <th className="title-time">{time}</th>
+
+            {Object.keys(dayInformations).map((groupId) => {
+              const activity = computedDaySchedule[groupId][index];
+
+              if (activity === false) {
+                return null;
+              }
+
+              if (activity === null) {
+                return (
+                  <td key={`${groupId}-${times[index]}`} className="activity-item available"></td>
+                );
+              }
+
+              return (
+                <td
+                  key={`${groupId}-${times[index]}`}
+                  className="activity-item not-available"
+                  title={`${activity.what} ${activity.where}`}
+                  style={{
+                    backgroundColor: activity.hexColor,
+                  }}
+                  rowSpan={activity.duration ?? 1}
+                >
+                  {activity.what} <span style={{ whiteSpace: "nowrap" }}>({activity.where})</span>
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };
-
-// const ShowEdtDayHeader = () => {
-// 	return (
-// 		<ul>
-// 			{times.map((time) => {
-// 				return <li key={time}>{time}</li>;
-// 			})}
-// 		</ul>
-// 	);
-// };
-
-// const ShowEdtDayContent = () => {
-// 	console.debug("update " + dayInformations.length);
-
-// 	const computedDaySchedule = useMemo(() => {
-// 		console.debug("recompute");
-// 		const schedule = new Array(times.length).fill(false);
-
-// 		dayInformations.forEach((activity) => {
-// 			const indexStart = times.findIndex((el) => el === activity.startTime);
-// 			const indexEnd = times.findIndex((el) => el === activity.endTime);
-
-// 			activity.length = indexEnd - indexStart;
-
-// 			schedule[indexStart] = activity;
-// 		});
-
-// 		return schedule;
-// 	}, [dayInformations]);
-
-// 	return (
-// 		<>
-// 			{computedDaySchedule.map((activity, index) => {
-// 				if (!activity) {
-// 					return (
-// 						<li key={times[index]} className="activity-item available"></li>
-// 					);
-// 				}
-
-// 				return (
-// 					<li
-// 						key={times[index]}
-// 						className="activity-item not-available"
-// 						title={`${activity.what} ${activity.where}`}
-// 						style={{
-// 							backgroundColor: activity.hexColor,
-// 						}}
-// 						rowSpan={activity.indexStart ?? 1}
-// 					>
-// 						{activity.what} ({activity.when} )
-// 					</li>
-// 				);
-// 			})}
-// 		</>
-// 	);
-// };
 
 export default ShowEdtDay;

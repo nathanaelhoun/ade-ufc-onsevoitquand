@@ -41,7 +41,7 @@ function compareDates(date1, date2) {
 const CompareEdt = ({ groupIds }) => {
   const all = useQueries(
     groupIds.map((id) => ({
-      queryKey: ["edt", id],
+      queryKey: ["schedule", id],
       queryFn: makeGetEdt(id),
     }))
   );
@@ -65,7 +65,7 @@ const CompareEdt = ({ groupIds }) => {
     };
   }, {});
 
-  return (
+	return (
     <div className="compare-edt">
       {Object.keys(byDays).map((day) => (
         <ShowDay key={`day-${day}`} day={day} dayInformations={byDays[day]} />

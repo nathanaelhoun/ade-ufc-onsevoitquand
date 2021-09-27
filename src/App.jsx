@@ -9,20 +9,19 @@ import GroupSelector from "./components/GroupeSelector/GroupSelector";
 function App() {
   const [groups, setGroups] = useState([]);
 
+  const groupsIds = groups.map((el) => el.id);
+
   return (
     <QueryClientProvider client={queryClient}>
       <GroupSelector
         groupId={0}
         addGroup={(group) => {
           console.info("Addind group", group);
-          setGroups((oldList) => {
-            oldList.push(group);
-            return oldList;
-          });
+          setGroups((oldList) => oldList.concat([group]));
         }}
       />
 
-      <CompareEdt groupIds={groups.map((el) => el.id)} />
+      <CompareEdt groupIds={groupsIds} />
     </QueryClientProvider>
   );
 }
