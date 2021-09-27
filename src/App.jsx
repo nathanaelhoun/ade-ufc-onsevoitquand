@@ -15,7 +15,7 @@ import { useLocalStorage } from "./utils/useLocalStorage";
 const lsKey = "saved-groups";
 
 function App() {
-  // Initial loading
+  // Initial loading from URL
   if (window.location.search !== "") {
     const { groups: JSONGroups } = queryString.parse(window.location.search);
     const groups = JSON.parse(JSONGroups);
@@ -24,8 +24,6 @@ function App() {
   }
 
   const [groups, setGroups] = useLocalStorage(lsKey, {});
-
-  console.debug("Groups", groups);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -40,6 +38,8 @@ function App() {
               setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
             }}
           />
+
+          <hr />
 
           <DeleteGroups groups={groups} setGroups={setGroups} />
           <ShareUrl groups={groups} />

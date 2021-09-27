@@ -44,16 +44,18 @@ const GroupSelector = ({ initialID, addGroup }) => {
 
   return (
     <div className="group-selector">
-      <Select
-        value={value}
-        id="group-select"
-        maxMenuHeight="100%"
-        isLoading={isLoading}
-        isDisabled={!isLoading && groupList.length === 0}
-        placeholder={isLoading ? "Chargement..." : "Choisissez un groupe"}
-        options={options}
-        onChange={selectValue}
-      />
+      <div id="group-select-wrapper">
+        <Select
+          value={value}
+          id="group-select"
+          maxMenuHeight="100%"
+          isLoading={isLoading}
+          isDisabled={!isLoading && groupList.length === 0}
+          placeholder={isLoading ? "Chargement..." : "Choisissez un groupe"}
+          options={options}
+          onChange={selectValue}
+        />
+      </div>
 
       <button
         disabled={isLoading || previousChoices.length === 0}

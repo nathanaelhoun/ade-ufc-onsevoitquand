@@ -1,0 +1,15 @@
+#title {
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    * {
+      display: inline;
+    }
+
+    img {
+      margin-left: 15px;
+    }
+  }
+}

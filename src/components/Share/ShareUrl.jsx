@@ -1,23 +1,52 @@
 import { PropTypes } from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+
+function shareWithOS(url) {
+  navigator
+    .share({
+      title: document.title,
+      text: "Quand est-ce qu'on peut se croiser ?",
+      url: url,
+    })
+    .catch((error) => console.error("Error sharing:", error));
+}
+
+function copyUrlToClipboard(url) {
+  navigator.clipboard.writeText(url);
+  alert("URL à partager copiée dans le presse-papier");
+}
 
 const ShareUrl = ({ groups }) => {
-  function copyUrlToClipboard() {
-    const url = window.location.href + "?groups=" + JSON.stringify(groups);
+  const [url, setUrl] = useState();
 
-    if ("clipboard" in navigator) {
-      navigator.clipboard.writeText(url);
-      alert("URL à partager copiée dans le presse-papier");
+  function shareUrl() {
+    const url =
+      window.location.href.replace(/[?]$/, "") +
+      "?groups=" +
+      encodeURIComponent(JSON.stringify(groups));
+
+    if (navigator.share) {
+      shareWithOS(url);
       return;
     }
 
+    if ("clipboard" in navigator) {
+      copyUrlToClipboard(url);
+      return;
+    }
+
+    setUrl(url);
     alert(`Envoyez ${url} pour partager cette comparaison`);
   }
 
   return (
-    <button onClick={copyUrlToClipboard} disabled={Object.keys(groups).length === 0}>
-      Partager cette comparaison
-    </button>
+    <>
+      <button onClick={shareUrl} disabled={Object.keys(groups).length === 0}>
+        Partager cette comparaison
+      </button>
+
+      {url && <pre>{url}</pre>}
+    </>
   );
 };
 
