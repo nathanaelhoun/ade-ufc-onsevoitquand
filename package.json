@@ -19,13 +19,64 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/",
+    "lint:fix": "eslint --fix src/",
+    "format": "prettier --check .",
+    "format:write": "prettier --write ."
   },
   "eslintConfig": {
+    "env": {
+      "browser": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2015,
+      "sourceType": "module"
+    },
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+      "react",
+      "import"
+    ],
+    "rules": {
+      "array-bracket-newline": "warn",
+      "array-bracket-spacing": "warn",
+      "import/no-anonymous-default-export": "off",
+      "camelcase": "warn",
+      "eqeqeq": "error",
+      "no-duplicate-imports": "error",
+      "no-else-return": "error",
+      "no-unneeded-ternary": "error",
+      "no-unused-vars": "warn",
+      "no-useless-rename": "error",
+      "prefer-arrow-callback": "error",
+      "react/prop-types": "warn",
+      "prefer-destructuring": [
+        "warn",
+        {
+          "object": true,
+          "array": false
+        }
+      ],
+      "import/order": [
+        "warn",
+        {
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          },
+          "newlines-between": "always-and-inside-groups"
+        }
+      ],
+      "react/no-unescaped-entities": "off"
+    }
+  },
+  "prettier": {
+    "printWidth": 100
   },
   "browserslist": {
     "production": [
@@ -38,5 +89,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "prettier": "^2.4.1"
   }
 }

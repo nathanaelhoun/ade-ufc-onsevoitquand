@@ -1,27 +1,27 @@
 table.schedule {
-	table-layout: fixed;
+  table-layout: fixed;
 
-	td,
-	th {
-		$padding: 0.2em;
-		padding-left: $padding;
-		padding-right: $padding;
-	}
+  td,
+  th {
+    $padding: 0.2em;
+    padding-left: $padding;
+    padding-right: $padding;
+  }
 
-	.title-time {
-		width: 5ch;
-		text-align: right;
-	}
+  .title-time {
+    width: 5ch;
+    text-align: right;
+  }
 }
 
 .activity-item {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .activity-item.available {
-	background-color: lightgreen;
+  background-color: lightgreen;
 }
 
 .activity-item.not-available {
-	opacity: 0.5;
+  opacity: 0.5;
 }
