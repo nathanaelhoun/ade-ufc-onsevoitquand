@@ -1,3 +1,13 @@
+/* ---------- Screen sizes ---------- */
+
+$screen-desktop: 1000px;
+$screen-smartphone-small: 360px;
+
+/* ---------- Colors ---------- */
+
+$available: lightgreen;
+$not-available: red;
+
 /* ---------- Make variables accessible from JS files ---------- */
 
 // :export {

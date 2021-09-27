@@ -1,5 +1,15 @@
+@import "../../variables.module.scss";
+
 table.schedule {
   table-layout: fixed;
+
+  .limit-height {
+    @media screen and (min-width: $screen-desktop) {
+      --rowSpan: 1;
+      max-height: calc(var(--rowSpan) * 1.8em);
+      overflow-x: hidden;
+    }
+  }
 
   td,
   th {
@@ -16,12 +26,28 @@ table.schedule {
 
 .activity-item {
   overflow: hidden;
+  text-align: center;
 }
 
 .activity-item.available {
-  background-color: lightgreen;
+  background-color: $available;
 }
 
 .activity-item.not-available {
-  opacity: 0.5;
+  background-color: $not-available;
+  opacity: 0.4;
+
+  @media screen and (min-width: $screen-desktop) {
+    opacity: 0.1;
+    transition: opacity 0.3s;
+    table.schedule:hover & {
+      opacity: 0.6;
+    }
+  }
+}
+
+.hide-on-mobile {
+  @media screen and (max-width: $screen-smartphone-small) {
+    display: none;
+  }
 }

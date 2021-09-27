@@ -1,5 +1,20 @@
-.day-schedule-comparison {
+@import "../../variables.module.scss";
+
+.compare-schedule {
   width: 100%;
+
+  @media screen and (min-width: $screen-desktop) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.day-schedule-comparison {
+  @media screen and (max-width: $screen-smartphone-small) {
+    width: 100%;
+  }
+
+  border: black 1px solid;
 
   h3 {
     text-align: center;

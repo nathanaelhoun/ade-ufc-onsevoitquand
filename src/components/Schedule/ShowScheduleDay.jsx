@@ -31,6 +31,9 @@ const times = [
 ];
 
 function computeDaySchedules(dayInformations) {
+  let firstTimeIndex = times.length - 1;
+  let lastTimeIndex = 0;
+
   const schedules = {};
   Object.keys(dayInformations).forEach((groupId) => {
     const rawSchedule = new Array(times.length).fill(null);
@@ -39,6 +42,14 @@ function computeDaySchedules(dayInformations) {
       dayInformations[groupId].forEach((activity) => {
         const indexStart = times.findIndex((el) => el === activity.startTime);
         const indexEnd = times.findIndex((el) => el === activity.endTime);
+
+        if (indexStart < firstTimeIndex) {
+          firstTimeIndex = indexStart;
+        }
+
+        if (lastTimeIndex < indexEnd) {
+          lastTimeIndex = indexEnd;
+        }
 
         activity.duration = indexEnd - indexStart;
         rawSchedule[indexStart] = activity;
@@ -62,14 +73,58 @@ function computeDaySchedules(dayInformations) {
     schedules[groupId] = schedule;
   });
 
-  return schedules;
+  return [schedules, firstTimeIndex, lastTimeIndex];
 }
 
-const ShowEdtDay = ({ dayInformations, groups }) => {
-  const firstTimeIndex = 0; // TODO compute this
-  const lastTimeIndex = times.length - 1; // TODO compute this
+const ScheduleRow = ({ activities, nbGroups }) => {
+  const available =
+    activities.filter((a) => a !== false).length === nbGroups &&
+    activities.every((a) => a === false || a === null);
 
-  const computedDaySchedule = useMemo(() => {
+  if (available) {
+    return <td colSpan={activities.length} className="activity-item available"></td>;
+  }
+
+  const classes = "activity-item " + (available ? "available" : "not-available");
+
+  return (
+    <>
+      {activities.map((activity, index) => {
+        if (activity === false) {
+          return null;
+        }
+
+        if (activity === null) {
+          return <td key={`${times[index]}`} className={classes}></td>;
+        }
+
+        return (
+          <td
+            key={`${times[index]}`}
+            className={classes}
+            title={`${activity.what} ${activity.where}`}
+            style={{
+              backgroundColor: activity.hexColor,
+            }}
+            rowSpan={activity.duration ?? 1}
+          >
+            <div className="limit-height" style={{ "--rowSpan": activity.duration ?? 1 }}>
+              {activity.what} <span style={{ whiteSpace: "nowrap" }}>({activity.where})</span>
+            </div>
+          </td>
+        );
+      })}
+    </>
+  );
+};
+
+ScheduleRow.propTypes = {
+  activities: PropTypes.array,
+  nbGroups: PropTypes.number,
+};
+
+const ShowScheduleDay = ({ dayInformations, groups }) => {
+  const [computedDaySchedule, firstTimeIndex, lastTimeIndex] = useMemo(() => {
     return computeDaySchedules(dayInformations);
   }, [dayInformations]);
 
@@ -87,37 +142,17 @@ const ShowEdtDay = ({ dayInformations, groups }) => {
           ))}
         </tr>
 
-        {times.slice(firstTimeIndex, lastTimeIndex).map((time, index) => (
-          <tr key={`row-${time}`}>
+        {times.map((time, index) => (
+          <tr
+            key={`row-${time}`}
+            className={firstTimeIndex <= index && index < lastTimeIndex ? "" : "hide-on-mobile"}
+          >
             <th className="title-time">{time}</th>
 
-            {groupIDs.map((groupId) => {
-              const activity = computedDaySchedule[groupId][index];
-
-              if (activity === false) {
-                return null;
-              }
-
-              if (activity === null) {
-                return (
-                  <td key={`${groupId}-${times[index]}`} className="activity-item available"></td>
-                );
-              }
-
-              return (
-                <td
-                  key={`${groupId}-${times[index]}`}
-                  className="activity-item not-available"
-                  title={`${activity.what} ${activity.where}`}
-                  style={{
-                    backgroundColor: activity.hexColor,
-                  }}
-                  rowSpan={activity.duration ?? 1}
-                >
-                  {activity.what} <span style={{ whiteSpace: "nowrap" }}>({activity.where})</span>
-                </td>
-              );
-            })}
+            <ScheduleRow
+              activities={groupIDs.map((groupID) => computedDaySchedule[groupID][index])}
+              nbGroups={groupIDs.length}
+            />
           </tr>
         ))}
       </tbody>
@@ -125,9 +160,9 @@ const ShowEdtDay = ({ dayInformations, groups }) => {
   );
 };
 
-ShowEdtDay.propTypes = {
+ShowScheduleDay.propTypes = {
   dayInformations: PropTypes.object,
   groups: PropTypes.object,
 };
 
-export default ShowEdtDay;
+export default ShowScheduleDay;
