@@ -4,7 +4,7 @@ import "./CompareEdt.scss";
 import { makeGetEdt } from "../../utils/ufc-edt";
 import Loading from "../miscellaneous/Loading";
 import Error from "../miscellaneous/Error";
-import ShowEdtDay, { ShowEdtDayContent, ShowEdtDayHeader } from "./ShowEdtDay";
+import ShowEdtDay from "./ShowEdtDay";
 
 function compareDates(date1, date2) {
 	const frenchMonthes = [

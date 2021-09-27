@@ -37,7 +37,7 @@ export function makeGetEdt(groupId) {
 							hexColor,
 							when,
 							what: what.trim(),
-							where: where.replace(/^ *\* +/g, ''),
+							where: (where ?? "").replace(/^ *\* +/g, ""),
 							startTime: startTime.trim(),
 							endTime: endTime.trim(),
 						};
@@ -49,5 +49,21 @@ export function makeGetEdt(groupId) {
 			});
 
 		return byDay;
+	};
+}
+
+export function makeGetSubgroups(groupId) {
+	return async () => {
+		const rawData = (await axios.get(`/wmselect.jsp?id=${groupId}`)).data;
+
+		return rawData
+			.split("\n")
+			.filter((line) => /\S/.test(line)) // remove empty lines
+			.slice(1) // remove outer group
+			.reduce((acc, line) => {
+				const [, id, name] = line.split(";");
+
+				return [...acc, { id, name }];
+			}, []);
 	};
 }

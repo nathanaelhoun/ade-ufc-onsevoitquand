@@ -64,13 +64,10 @@ function computeDaySchedules(dayInformations) {
 }
 
 const ShowEdtDay = ({ dayInformations }) => {
-	console.debug(dayInformations);
-
 	const firstTimeIndex = 0; // TODO compute this
 	const lastTimeIndex = times.length - 1; // TODO compute this
 
 	const computedDaySchedule = useMemo(() => {
-		console.debug("recompute");
 		return computeDaySchedules(dayInformations);
 	}, [dayInformations]);
 
