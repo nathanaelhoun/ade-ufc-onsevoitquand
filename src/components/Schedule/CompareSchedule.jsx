@@ -46,13 +46,11 @@ const CompareSchedule = ({ groups }) => {
   return (
     <div className="compare-edt">
       {Object.keys(byDays).map((day) => (
-        <>
-          <div className="day-schedule-comparison" key={`day-${day}`}>
-            <h3>{day}</h3>
+        <div className="day-schedule-comparison" key={`day-${day}`}>
+          <h3>{day}</h3>
 
-            <ShowScheduleDay dayInformations={byDays[day]} groups={groups} />
-          </div>
-        </>
+          <ShowScheduleDay dayInformations={byDays[day]} groups={groups} />
+        </div>
       ))}
     </div>
   );
