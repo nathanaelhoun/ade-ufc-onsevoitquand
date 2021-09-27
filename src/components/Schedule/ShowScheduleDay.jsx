@@ -145,7 +145,7 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
         {times.map((time, index) => (
           <tr
             key={`row-${time}`}
-            className={firstTimeIndex <= index && index < lastTimeIndex ? "" : "hide-on-mobile"}
+            className={firstTimeIndex <= index && index < lastTimeIndex ? "" : "hide-gain-space"}
           >
             <th className="title-time">{time}</th>
 

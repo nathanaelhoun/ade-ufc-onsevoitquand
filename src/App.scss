@@ -1,1 +1,59 @@
 @import "./variables.module.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+header {
+  padding: 1.2em;
+
+  @media screen and (min-width: $screen-desktop) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      margin: 0.5em;
+    }
+  }
+}
+
+$footer-height: 2em;
+
+#root {
+  padding-bottom: $footer-height;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 0.5em;
+  height: $footer-height;
+
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  * {
+    margin: auto;
+  }
+}

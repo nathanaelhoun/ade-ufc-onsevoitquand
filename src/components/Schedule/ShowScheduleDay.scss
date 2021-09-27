@@ -46,8 +46,8 @@ table.schedule {
   }
 }
 
-.hide-on-mobile {
-  @media screen and (max-width: $screen-smartphone-small) {
-    display: none;
-  }
+.hide-gain-space {
+  // @media screen and (max-width: $screen-smartphone-small) {
+  display: none;
+  // }
 }

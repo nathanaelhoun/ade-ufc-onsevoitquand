@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "OnSeVoitQuand",
+  "name": "OnSeVoitQuand?",
+  "description": "Trouver un créneau pour se voir entre étudiants de l'UFC",
   "icons": [
     {
       "src": "favicon.ico",

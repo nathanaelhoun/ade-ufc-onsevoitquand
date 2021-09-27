@@ -5,6 +5,8 @@ import { QueryClientProvider } from "react-query";
 
 import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
+import Footer from "./components/miscellaneous/Footer";
+import Title from "./components/miscellaneous/Title";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
 import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
@@ -23,18 +25,28 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GroupSelector
-        groupId={0}
-        addGroup={(group) => {
-          console.info("Adding group", group);
-          setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
-        }}
-      />
+      <header>
+        <Title />
 
-      <DeleteGroups groups={groups} onClick={() => setGroups({})} />
-      <ShareUrl groups={groups} />
+        <div className="buttons">
+          <GroupSelector
+            groupId={0}
+            addGroup={(group) => {
+              console.info("Adding group", group);
+              setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
+            }}
+          />
 
-      <CompareSchedule groups={groups} />
+          <DeleteGroups groups={groups} setGroups={setGroups} />
+          <ShareUrl groups={groups} />
+        </div>
+      </header>
+
+      <main>
+        <CompareSchedule groups={groups} />
+      </main>
+
+      <Footer />
     </QueryClientProvider>
   );
 }

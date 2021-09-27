@@ -1,13 +1,15 @@
 import { PropTypes } from "prop-types";
 import React, { useState } from "react";
-
 import { useQuery } from "react-query";
+import Select from "react-select";
+
+import "./GroupSelector.scss";
 
 import { makeGetSubgroups } from "../../utils/ufc-edt";
 import Error from "../miscellaneous/Error";
-import Loading from "../miscellaneous/Loading";
 
 const GroupSelector = ({ initialID, addGroup }) => {
+  const [value, setValue] = useState();
   const [previousChoice, setPreviousChoice] = useState({ id: 0, name: "UFC" });
   const [currentChoice, setCurrentChoice] = useState({
     id: initialID,
@@ -20,56 +22,39 @@ const GroupSelector = ({ initialID, addGroup }) => {
     isError,
   } = useQuery(["group", currentChoice.id], makeGetSubgroups(currentChoice.id));
 
-  if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
-  if (groupList.length === 0) {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            addGroup(currentChoice);
-            setCurrentChoice({ id: initialID, name: "UFC" });
-            setPreviousChoice({ id: 0, name: "UFC" });
-          }}
-        >
-          Ajouter le groupe {currentChoice.name}
-        </button>
-
-        <button
-          onClick={() => {
-            setCurrentChoice(previousChoice);
-          }}
-        >
-          Revenir en arrière
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <select
-        name="select-group"
-        id="select-group"
-        onChange={({ target }) => {
+    <div className="group-selector">
+      <Select
+        value={value}
+        id="group-select"
+        maxMenuHeight="100%"
+        isLoading={isLoading}
+        isDisabled={!isLoading && groupList.length === 0}
+        placeholder={isLoading ? "Chargement..." : "Choisissez un groupe"}
+        options={isLoading ? [] : groupList.map((el) => ({ value: el.id, label: el.name }))}
+        onChange={(newValue) => {
           setPreviousChoice(currentChoice);
-          setCurrentChoice({
-            id: target.value,
-            name: target.options[target.selectedIndex].text.replace(/^(Retour à)/, ""),
-          });
+          setCurrentChoice({ id: newValue.value, name: newValue.label });
+          setValue(null);
+        }}
+      />
+
+      <button disabled={isLoading} onClick={() => setCurrentChoice(previousChoice)}>
+        Revenir à {previousChoice.name}
+      </button>
+
+      <button
+        disabled={isLoading || groupList.length !== 0}
+        onClick={() => {
+          addGroup(currentChoice);
+          setCurrentChoice({ id: initialID, name: "UFC" });
+          setPreviousChoice({ id: 0, name: "UFC" });
         }}
       >
-        {previousChoice && (
-          <option value={previousChoice.id}>Retour à {previousChoice.name}</option>
-        )}
-
-        {groupList.map((el) => (
-          <option key={el.id} value={el.id}>
-            {el.name}
-          </option>
-        ))}
-      </select>
+        Ajouter le groupe {currentChoice.name}
+      </button>
     </div>
   );
 };

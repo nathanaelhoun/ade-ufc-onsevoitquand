@@ -1,0 +1,16 @@
+@import "../../variables.module.scss";
+
+.group-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  flex-wrap: wrap;
+
+  div#group-select {
+    width: auto;
+
+    @media screen and (max-width: $screen-smartphone-small) {
+      width: 100%;
+    }
+  }
+}
