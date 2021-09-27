@@ -3,6 +3,7 @@ import queryString from "query-string";
 import { React } from "react";
 import { QueryClientProvider } from "react-query";
 
+import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
 import ShareUrl from "./components/Share/ShareUrl";
@@ -30,6 +31,7 @@ function App() {
         }}
       />
 
+      <DeleteGroups groups={groups} onClick={() => setGroups({})} />
       <ShareUrl groups={groups} />
 
       <CompareSchedule groups={groups} />
