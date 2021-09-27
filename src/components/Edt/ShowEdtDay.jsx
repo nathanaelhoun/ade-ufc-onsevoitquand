@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
+
 import "./ShowEdtDay.scss";
 
 const times = [
@@ -63,7 +64,7 @@ function computeDaySchedules(dayInformations) {
   return schedules;
 }
 
-const ShowEdtDay = ({ dayInformations }) => {
+const ShowEdtDay = ({ dayInformations, groups }) => {
   const firstTimeIndex = 0; // TODO compute this
   const lastTimeIndex = times.length - 1; // TODO compute this
 
@@ -76,9 +77,9 @@ const ShowEdtDay = ({ dayInformations }) => {
       <tbody>
         <tr>
           <th className="title-time"></th>
-          {Object.keys(dayInformations).map((groupId) => (
-            <th key={`group-id-${groupId}`} className="title-group">
-              {groupId}
+          {Object.keys(dayInformations).map((groupID) => (
+            <th key={`group-id-${groupID}`} className="title-group">
+              {groups[groupID]} ({groupID})
             </th>
           ))}
         </tr>

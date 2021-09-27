@@ -1,10 +1,12 @@
 import { useQueries } from "react-query";
-import "./CompareEdt.scss";
+import React from "react";
 
-import { makeGetEdt } from "../../utils/ufc-edt";
-import Loading from "../miscellaneous/Loading";
-import Error from "../miscellaneous/Error";
+import "./CompareEdt.scss";
 import ShowEdtDay from "./ShowEdtDay";
+
+import Error from "../miscellaneous/Error";
+import Loading from "../miscellaneous/Loading";
+import { makeGetEdt } from "../../utils/ufc-edt";
 
 function compareDates(date1, date2) {
   const frenchMonthes = [
@@ -38,48 +40,47 @@ function compareDates(date1, date2) {
   return day1 - day2;
 }
 
-const CompareEdt = ({ groupIds }) => {
-  const all = useQueries(
-    groupIds.map((id) => ({
-      queryKey: ["schedule", id],
-      queryFn: makeGetEdt(id),
+const CompareEdt = ({ groups }) => {
+  const allResponses = useQueries(
+    Object.keys(groups).map((groupID) => ({
+      queryKey: ["schedule", groupID],
+      queryFn: makeGetEdt(groupID),
     }))
   );
 
-  if (all.some((e) => e.isLoading)) return <Loading />;
-  if (all.some((e) => e.error)) return <Error />;
+  if (allResponses.some((e) => e.isLoading)) return <Loading />;
+  if (allResponses.some((e) => e.error)) return <Error />;
 
-  const allData = all.map((edt) => edt.data);
+  const allData = allResponses.map((response) => response.data);
   const allDays = [...new Set(allData.flatMap(Object.keys))].sort(compareDates);
-
   const byDays = allDays.reduce((acc, day) => {
     return {
       ...acc,
       [day]: allData.reduce(
         (acc, groupSchedule, index) => ({
           ...acc,
-          [groupIds[index]]: groupSchedule[day],
+          [Object.keys(groups)[index]]: groupSchedule[day],
         }),
         {}
       ),
     };
   }, {});
 
-	return (
+  return (
     <div className="compare-edt">
       {Object.keys(byDays).map((day) => (
-        <ShowDay key={`day-${day}`} day={day} dayInformations={byDays[day]} />
+        <ShowDay key={`day-${day}`} day={day} dayInformations={byDays[day]} groups={groups} />
       ))}
     </div>
   );
 };
 
-const ShowDay = ({ day, dayInformations }) => {
+const ShowDay = ({ day, dayInformations, groups }) => {
   return (
     <div className="day-schedule-comparison">
       <h3>{day}</h3>
 
-      <ShowEdtDay dayInformations={dayInformations} />
+      <ShowEdtDay dayInformations={dayInformations} groups={groups} />
     </div>
   );
 };
