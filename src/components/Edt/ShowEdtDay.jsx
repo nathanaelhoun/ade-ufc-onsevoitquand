@@ -1,3 +1,4 @@
+import { PropTypes } from "prop-types";
 import React, { useMemo } from "react";
 
 import "./ShowEdtDay.scss";
@@ -120,6 +121,11 @@ const ShowEdtDay = ({ dayInformations, groups }) => {
       </tbody>
     </table>
   );
+};
+
+ShowEdtDay.propTypes = {
+  dayInformations: PropTypes.object,
+  groups: PropTypes.object,
 };
 
 export default ShowEdtDay;

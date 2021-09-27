@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.4",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.24.3",
@@ -20,60 +21,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx}",
     "format": "prettier --check .",
     "format:write": "prettier --write ."
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2015,
-      "sourceType": "module"
-    },
-    "extends": [
-      "react-app",
-      "eslint:recommended",
-      "plugin:react/recommended"
-    ],
-    "plugins": [
-      "react",
-      "import"
-    ],
-    "rules": {
-      "array-bracket-newline": "warn",
-      "array-bracket-spacing": "warn",
-      "import/no-anonymous-default-export": "off",
-      "camelcase": "warn",
-      "eqeqeq": "error",
-      "no-duplicate-imports": "error",
-      "no-else-return": "error",
-      "no-unneeded-ternary": "error",
-      "no-unused-vars": "warn",
-      "no-useless-rename": "error",
-      "prefer-arrow-callback": "error",
-      "react/prop-types": "warn",
-      "prefer-destructuring": [
-        "warn",
-        {
-          "object": true,
-          "array": false
-        }
-      ],
-      "import/order": [
-        "warn",
-        {
-          "alphabetize": {
-            "order": "asc",
-            "caseInsensitive": true
-          },
-          "newlines-between": "always-and-inside-groups"
-        }
-      ],
-      "react/no-unescaped-entities": "off"
-    }
   },
   "prettier": {
     "printWidth": 100

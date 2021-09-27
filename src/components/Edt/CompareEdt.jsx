@@ -1,12 +1,14 @@
-import { useQueries } from "react-query";
+import { PropTypes } from "prop-types";
 import React from "react";
+import { useQueries } from "react-query";
 
 import "./CompareEdt.scss";
-import ShowEdtDay from "./ShowEdtDay";
-
-import Error from "../miscellaneous/Error";
-import Loading from "../miscellaneous/Loading";
 import { makeGetEdt } from "../../utils/ufc-edt";
+import Error from "../miscellaneous/Error";
+
+import Loading from "../miscellaneous/Loading";
+
+import ShowEdtDay from "./ShowEdtDay";
 
 function compareDates(date1, date2) {
   const frenchMonthes = [
@@ -83,6 +85,18 @@ const ShowDay = ({ day, dayInformations, groups }) => {
       <ShowEdtDay dayInformations={dayInformations} groups={groups} />
     </div>
   );
+};
+
+CompareEdt.propTypes = {
+  dayInformations: PropTypes.object,
+  groups: PropTypes.object,
+  day: PropTypes.string,
+};
+
+ShowDay.propTypes = {
+  dayInformations: PropTypes.object,
+  groups: PropTypes.object,
+  day: PropTypes.string,
 };
 
 export default CompareEdt;

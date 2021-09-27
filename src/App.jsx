@@ -1,10 +1,10 @@
 import "./App.scss";
-import { QueryClientProvider } from "react-query";
 import { React } from "react";
+import { QueryClientProvider } from "react-query";
 
-import queryClient from "./utils/queryClient";
 import CompareEdt from "./components/Edt/CompareEdt";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
+import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {

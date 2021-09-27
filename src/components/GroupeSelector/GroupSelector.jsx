@@ -1,6 +1,8 @@
+import { PropTypes } from "prop-types";
 import React, { useState } from "react";
 
 import { useQuery } from "react-query";
+
 import { makeGetSubgroups } from "../../utils/ufc-edt";
 import Error from "../miscellaneous/Error";
 import Loading from "../miscellaneous/Loading";
@@ -70,6 +72,11 @@ const GroupSelector = ({ initialID, addGroup }) => {
       </select>
     </div>
   );
+};
+
+GroupSelector.propTypes = {
+  initialID: PropTypes.number,
+  addGroup: PropTypes.func,
 };
 
 export default GroupSelector;

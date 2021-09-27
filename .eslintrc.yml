@@ -1,0 +1,36 @@
+env:
+  browser: true
+parserOptions:
+  ecmaVersion: 2015
+  sourceType: module
+extends:
+  - react-app
+  - "eslint:recommended"
+  - "plugin:react/recommended"
+plugins:
+  - react
+  - import
+rules:
+  array-bracket-newline: warn
+  array-bracket-spacing: warn
+  import/no-anonymous-default-export: "off"
+  camelcase: warn
+  eqeqeq: error
+  no-duplicate-imports: error
+  no-else-return: error
+  no-unneeded-ternary: error
+  no-unused-vars: warn
+  no-useless-rename: error
+  prefer-arrow-callback: error
+  react/prop-types: warn
+  prefer-destructuring:
+    - warn
+    - object: true
+      array: false
+  import/order:
+    - warn
+    - alphabetize:
+        order: asc
+        caseInsensitive: true
+      newlines-between: always-and-inside-groups
+  react/no-unescaped-entities: "off"
