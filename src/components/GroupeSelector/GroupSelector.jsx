@@ -10,11 +10,27 @@ import Error from "../miscellaneous/Error";
 
 const GroupSelector = ({ initialID, addGroup }) => {
   const [value, setValue] = useState();
-  const [previousChoice, setPreviousChoice] = useState({ id: 0, name: "UFC" });
+  const [previousChoices, setPreviousChoices] = useState([]);
   const [currentChoice, setCurrentChoice] = useState({
     id: initialID,
     name: "UFC",
   });
+
+  function popPreviousChoice() {
+    const lastPreviousChoice = previousChoices[previousChoices.length - 1];
+    setPreviousChoices((previousChoices) => previousChoices.slice(0, -1));
+    return lastPreviousChoice;
+  }
+
+  function getGroupPath() {
+    return [...previousChoices.slice(1), currentChoice].map(({ name }) => name).join(" > ");
+  }
+
+  function selectValue({ value, label }) {
+    setPreviousChoices((old) => [...old, currentChoice]);
+    setCurrentChoice({ id: value, name: label });
+    setValue(null);
+  }
 
   const {
     data: groupList,
@@ -23,6 +39,8 @@ const GroupSelector = ({ initialID, addGroup }) => {
   } = useQuery(["group", currentChoice.id], makeGetSubgroups(currentChoice.id));
 
   if (isError) return <Error />;
+
+  const options = groupList ? groupList.map((el) => ({ value: el.id, label: el.name })) : [];
 
   return (
     <div className="group-selector">
@@ -33,27 +51,24 @@ const GroupSelector = ({ initialID, addGroup }) => {
         isLoading={isLoading}
         isDisabled={!isLoading && groupList.length === 0}
         placeholder={isLoading ? "Chargement..." : "Choisissez un groupe"}
-        options={isLoading ? [] : groupList.map((el) => ({ value: el.id, label: el.name }))}
-        onChange={(newValue) => {
-          setPreviousChoice(currentChoice);
-          setCurrentChoice({ id: newValue.value, name: newValue.label });
-          setValue(null);
-        }}
+        options={options}
+        onChange={selectValue}
       />
 
-      <button disabled={isLoading} onClick={() => setCurrentChoice(previousChoice)}>
-        Revenir à {previousChoice.name}
+      <button
+        disabled={isLoading || previousChoices.length === 0}
+        onClick={() => setCurrentChoice(popPreviousChoice)}
+      >
+        Revenir à {previousChoices[previousChoices.length - 1]?.name}
       </button>
 
       <button
         disabled={isLoading || groupList.length !== 0}
         onClick={() => {
-          addGroup(currentChoice);
-          setCurrentChoice({ id: initialID, name: "UFC" });
-          setPreviousChoice({ id: 0, name: "UFC" });
+          addGroup({ id: currentChoice.id, name: getGroupPath() });
         }}
       >
-        Ajouter le groupe {currentChoice.name}
+        Ajouter le groupe {getGroupPath()}
       </button>
     </div>
   );

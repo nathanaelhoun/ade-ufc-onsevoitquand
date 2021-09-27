@@ -12,16 +12,20 @@ import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
-function App() {
-  const [groups, setGroups] = useLocalStorage("saved-groups", {});
+const lsKey = "saved-groups";
 
+function App() {
   // Initial loading
   if (window.location.search !== "") {
     const { groups: JSONGroups } = queryString.parse(window.location.search);
     const groups = JSON.parse(JSONGroups);
-    setGroups((oldGroups) => ({ ...oldGroups, ...groups }));
+    localStorage.setItem(lsKey, JSON.stringify(groups));
     window.location.search = "";
   }
+
+  const [groups, setGroups] = useLocalStorage(lsKey, {});
+
+  console.debug("Groups", groups);
 
   return (
     <QueryClientProvider client={queryClient}>

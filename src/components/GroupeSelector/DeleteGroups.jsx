@@ -19,11 +19,11 @@ const DeleteGroups = ({ groups, setGroups }) => {
           onClick={() => {
             setGroups((oldGroups) => {
               delete oldGroups[groupID];
-              return oldGroups;
+              return { ...oldGroups };
             });
           }}
         >
-          Supprimer {groups[groupID]}
+          {groups[groupID].split(">").slice(-1)}
         </button>
       ))}
     </div>

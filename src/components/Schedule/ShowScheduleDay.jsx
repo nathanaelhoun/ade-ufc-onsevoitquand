@@ -136,8 +136,8 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
         <tr>
           <th className="title-time"></th>
           {groupIDs.map((groupID) => (
-            <th key={`group-id-${groupID}`} className="title-group">
-              {groups[groupID]} ({groupID})
+            <th key={`group-id-${groupID}`} className="title-group" title={groups[groupID]}>
+              {groups[groupID].split(">").slice(-3).join(" > ")}
             </th>
           ))}
         </tr>
