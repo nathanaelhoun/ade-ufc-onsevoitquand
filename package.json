@@ -16,7 +16,6 @@
     "sass": "^1.41.1",
     "web-vitals": "^1.0.1"
   },
-  "proxy": "https://sedna.univ-fcomte.fr/jsp/custom/ufc",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -44,6 +43,7 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "http-proxy-middleware": "^2.0.1",
     "prettier": "^2.4.1"
   }
 }
