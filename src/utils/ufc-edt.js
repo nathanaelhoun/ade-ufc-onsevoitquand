@@ -9,7 +9,7 @@ export function makeGetEdt(groupId) {
 
     const rawData = (
       await axios.get(
-        `/wmplanif.jsp?id=${groupId}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
+        `/api/v1/wmplanif.jsp?id=${groupId}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
       )
     ).data;
 
@@ -53,7 +53,7 @@ export function makeGetEdt(groupId) {
 
 export function makeGetSubgroups(groupId) {
   return async () => {
-    const rawData = (await axios.get(`/wmselect.jsp?id=${groupId}`)).data;
+    const rawData = (await axios.get(`/api/v1/wmselect.jsp?id=${groupId}`)).data;
 
     return rawData
       .split("\n")

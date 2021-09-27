@@ -73,12 +73,14 @@ const ShowEdtDay = ({ dayInformations, groups }) => {
     return computeDaySchedules(dayInformations);
   }, [dayInformations]);
 
+  const groupIDs = Object.keys(dayInformations);
+
   return (
     <table className="schedule">
       <tbody>
         <tr>
           <th className="title-time"></th>
-          {Object.keys(dayInformations).map((groupID) => (
+          {groupIDs.map((groupID) => (
             <th key={`group-id-${groupID}`} className="title-group">
               {groups[groupID]} ({groupID})
             </th>
@@ -89,7 +91,7 @@ const ShowEdtDay = ({ dayInformations, groups }) => {
           <tr key={`row-${time}`}>
             <th className="title-time">{time}</th>
 
-            {Object.keys(dayInformations).map((groupId) => {
+            {groupIDs.map((groupId) => {
               const activity = computedDaySchedule[groupId][index];
 
               if (activity === false) {
