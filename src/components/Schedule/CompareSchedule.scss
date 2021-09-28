@@ -2,10 +2,11 @@
 
 .compare-schedule {
   width: 100%;
+  --numCols: 5;
 
   @media screen and (min-width: $screen-desktop) {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(var(--numCols), 1fr);
   }
 }
 

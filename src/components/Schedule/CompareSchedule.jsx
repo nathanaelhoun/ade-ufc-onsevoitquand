@@ -43,12 +43,13 @@ const CompareSchedule = ({ groups }) => {
     allResponses.map((response) => response.data)
   );
 
+  const numCols = Math.floor(Math.max(0, 7 - (Object.keys(groups).length / 2)));
+
   return (
-    <div className="compare-schedule">
+    <div className="compare-schedule" style={{ "--numCols": numCols }}>
       {Object.keys(byDays).map((day) => (
         <div className="day-schedule-comparison" key={`day-${day}`}>
           <h3>{day}</h3>
-
           <ShowScheduleDay dayInformations={byDays[day]} groups={groups} />
         </div>
       ))}

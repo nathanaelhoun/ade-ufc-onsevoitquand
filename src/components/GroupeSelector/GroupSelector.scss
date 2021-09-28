@@ -1,6 +1,7 @@
 @import "../../variables.module.scss";
 
 .group-selector {
+  color: $fg-color;
   display: flex;
   flex-direction: row;
   @media screen and (max-width: $screen-smartphone-small) {

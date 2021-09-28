@@ -42,6 +42,8 @@ const GroupSelector = ({ initialID, addGroup }) => {
 
   const options = groupList ? groupList.map((el) => ({ value: el.id, label: el.name })) : [];
 
+const placeholder = isLoading ? 'Chargement' : groupList.length === 0 ? "Plus de choix" : "Choisissez un groupe"
+
   return (
     <div className="group-selector">
       <div id="group-select-wrapper">
@@ -51,7 +53,7 @@ const GroupSelector = ({ initialID, addGroup }) => {
           maxMenuHeight="100%"
           isLoading={isLoading}
           isDisabled={!isLoading && groupList.length === 0}
-          placeholder={isLoading ? "Chargement..." : "Choisissez un groupe"}
+          placeholder={placeholder}
           options={options}
           onChange={selectValue}
         />
