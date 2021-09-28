@@ -1,8 +1,7 @@
 import axios from "axios";
 
-export function makeGetEdt(groupId) {
+export function makeGetEdt(groupId, days = 14) {
   return async () => {
-    const days = 14;
     const mode = 3;
     const color = 1;
     const sports = "0";

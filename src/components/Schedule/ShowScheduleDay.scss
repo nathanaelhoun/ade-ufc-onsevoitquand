@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @import "../../variables.module.scss";
 
 table.schedule {
@@ -34,16 +36,7 @@ table.schedule {
 }
 
 .activity-item.not-available {
-  background-color: $not-available;
-  opacity: 0.4;
-
-  @media screen and (min-width: $screen-desktop) {
-    opacity: 0.1;
-    transition: opacity 0.3s;
-    table.schedule:hover & {
-      opacity: 0.6;
-    }
-  }
+  background-color: color.scale($not-available, $alpha: -30%);
 }
 
 .hide-gain-space {

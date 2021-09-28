@@ -104,7 +104,7 @@ const ScheduleRow = ({ activities, nbGroups }) => {
             className={classes}
             title={`${activity.what} ${activity.where}`}
             style={{
-              backgroundColor: activity.hexColor,
+              backgroundColor: `${activity.hexColor}90`,
             }}
             rowSpan={activity.duration ?? 1}
           >
