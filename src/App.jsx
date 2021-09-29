@@ -6,6 +6,8 @@ import ReactTooltip from "react-tooltip";
 
 import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
+import ControlledCheckbox from "./components/miscellaneous/ControlledCheckbox";
+import ControlledInput from "./components/miscellaneous/ControlledInput";
 import Footer from "./components/miscellaneous/Footer";
 import Title from "./components/miscellaneous/Title";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
@@ -24,6 +26,7 @@ function App() {
     window.location.search = "";
   }
 
+  const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
   const [groups, setGroups] = useLocalStorage(lsKey, {});
 
   return (
@@ -43,11 +46,32 @@ function App() {
           <DeleteGroups groups={groups} setGroups={setGroups} />
           <hr />
           <ShareUrl groups={groups} />
+
+          <div id="config">
+            <ControlledCheckbox
+              id="config-compact"
+              value={config.isCompact}
+              handleInput={(ev) => setConfig((old) => ({ ...old, isCompact: ev.target.checked }))}
+              data-tip="Cache les heures libres dans tous les emplois du temps en début et en fin de journée"
+            >
+              <>Économiser de la place</>
+            </ControlledCheckbox>
+            <ControlledInput
+              id="config-weeks"
+              value={config.nbWeeks}
+              handleInput={(ev) =>
+                setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
+              }
+              data-tip="Nombre de semaines à afficher dans la comparaison"
+            >
+              <>Nombre de semaines</>
+            </ControlledInput>
+          </div>
         </div>
       </header>
 
       <main>
-        <CompareSchedule groups={groups} />
+        <CompareSchedule groups={groups} config={config} />
       </main>
 
       <Footer />

@@ -72,6 +72,22 @@ $footer-height: 3em;
   padding-bottom: $footer-height;
 }
 
+#config {
+  display: flex;
+  flex: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .config-item {
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: $screen-smartphone-small) {
+      margin-top: 0.5em;
+    }
+  }
+}
+
 footer {
   position: absolute;
   width: 100%;

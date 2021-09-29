@@ -3,6 +3,8 @@
 $screen-desktop: 1200px;
 $screen-smartphone-small: 360px;
 
+$max-columns: 6;
+
 /* ---------- Colors ---------- */
 
 $bg-color: #fafafa;
@@ -18,5 +20,6 @@ $not-available: red;
 
 /* ---------- Make variables accessible from JS files ---------- */
 
-// :export {
-// }
+:export {
+  maxColumns: $max-columns;
+}

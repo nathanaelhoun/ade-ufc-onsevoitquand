@@ -5,6 +5,7 @@ import { useQueries } from "react-query";
 import "./CompareSchedule.scss";
 
 import { compareDates, makeGetEdt } from "../../utils/ufc-edt";
+import variables from "../../variables.module.scss";
 import Error from "../miscellaneous/Error";
 import Loading from "../miscellaneous/Loading";
 
@@ -27,11 +28,12 @@ function regroupByDay(groups, data) {
   }, {});
 }
 
-const CompareSchedule = ({ groups }) => {
+const CompareSchedule = ({ groups, config }) => {
   const allResponses = useQueries(
     Object.keys(groups).map((groupID) => ({
-      queryKey: ["schedule", groupID],
-      queryFn: makeGetEdt(groupID),
+      queryKey: ["schedule", groupID, config.nbWeeks],
+      queryFn: makeGetEdt(groupID, config.nbWeeks * 7),
+      refetchOnMount: false,
     }))
   );
 
@@ -43,12 +45,21 @@ const CompareSchedule = ({ groups }) => {
     allResponses.map((response) => response.data)
   );
 
-  const numCols = Math.floor(Math.max(0, 7 - Object.keys(groups).length / 2));
+  console.debug(variables, variables.maxColumns);
+
+  const numCols = Math.max(
+    0,
+    parseInt(variables.maxColumns) - Math.floor(Object.keys(groups).length / 2)
+  );
 
   return (
-    <div className="compare-schedule" style={{ "--numCols": numCols }}>
+    <div
+      className={`compare-schedule columns-${numCols} ${config.isCompact ? "compact" : ""}`}
+      style={{ "--numCols": numCols }}
+    >
       {Object.keys(byDays).map((day) => (
         <div className="day-schedule-comparison" key={`day-${day}`}>
+          <hr />
           <h3>{day}</h3>
           <ShowScheduleDay dayInformations={byDays[day]} groups={groups} />
         </div>
@@ -61,6 +72,10 @@ CompareSchedule.propTypes = {
   dayInformations: PropTypes.object,
   groups: PropTypes.object,
   day: PropTypes.string,
+  config: PropTypes.shape({
+    isCompact: PropTypes.bool,
+    nbWeeks: PropTypes.number,
+  }),
 };
 
 export default CompareSchedule;

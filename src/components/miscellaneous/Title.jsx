@@ -1,20 +1,27 @@
 import React from "react";
 
 import "./Title.scss";
+import { ReactComponent as LogoIcon } from "../../assets/logo.svg";
 
 const Title = () => (
   <div id="title">
     <div>
       <h1>OnSeVoitQuand?</h1>
-      <img src="/logo192.png" alt="Icône de calendrier" height="50px" />
+      <LogoIcon
+        id="icon"
+        alt="Icône de calendrier"
+        height="50px"
+        width="50px"
+        style={{ color: "var(--text-color)" }}
+      />
     </div>
     <p>
       Trouver un créneau pour se voir entre étudiants de l'
-      <abbr title="Université de Franche-Comté">UFC</abbr>. Par{" "}
-      <a href="https://nathanaelhoun.fr/">@nathanaelhoun</a>.{" "}
+      <abbr title="Université de Franche-Comté">UFC</abbr>.{" "}
       <a href="https://github.com/nathanaelhoun/ade-ufc-onsevoitquand/">
-        <code>Code source.</code>
-      </a>
+        <code style={{ display: "inline" }}>Code source</code>
+      </a>{" "}
+      par <a href="https://nathanaelhoun.fr/">@nathanaelhoun</a>.{" "}
     </p>
   </div>
 );

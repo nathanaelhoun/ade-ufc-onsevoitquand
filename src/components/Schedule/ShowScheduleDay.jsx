@@ -106,11 +106,14 @@ const ScheduleRow = ({ activities, nbGroups }) => {
             data-tip={`${activity.what} ${activity.where}`}
             style={{
               backgroundColor: `${activity.hexColor}90`,
+              "--rowspan": activity.duration ?? 1,
             }}
             rowSpan={activity.duration ?? 1}
           >
-            <div className="limit-height" style={{ "--rowSpan": activity.duration ?? 1 }}>
-              {activity.what} <span style={{ whiteSpace: "nowrap" }}>({activity.where})</span>
+            <div className="container">
+              <div>
+                {activity.what} ({activity.where})
+              </div>
             </div>
           </td>
         );
@@ -138,7 +141,7 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
   return (
     <table className="schedule">
       <tbody>
-        <tr>
+        <tr className="head-row">
           <th className="title-time"></th>
           {groupIDs.map((groupID) => (
             <th
@@ -146,13 +149,14 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
               className="title-group"
               data-tip={groups[groupID].replaceAll(">", "<br/>")}
             >
-              {groups[groupID].split(">").slice(-3).join(" > ").slice(-30)}
+              <div>{groups[groupID].split(">").slice(-3).join(">").slice(-30)}</div>
             </th>
           ))}
         </tr>
 
         {times.map((time, index) => (
           <tr
+            height="22px"
             key={`row-${time}`}
             className={firstTimeIndex <= index && index < lastTimeIndex ? "" : "hide-gain-space"}
           >
