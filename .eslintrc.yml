@@ -11,6 +11,7 @@ plugins:
   - react
   - import
 rules:
+  no-constant-condition: warn
   array-bracket-newline: warn
   array-bracket-spacing: warn
   import/no-anonymous-default-export: "off"

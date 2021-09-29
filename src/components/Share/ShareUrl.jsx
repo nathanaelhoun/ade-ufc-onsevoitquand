@@ -11,11 +11,6 @@ function shareWithOS(url) {
     .catch((error) => console.error("Error sharing:", error));
 }
 
-function copyUrlToClipboard(url) {
-  navigator.clipboard.writeText(url);
-  alert("URL à partager copiée dans le presse-papier");
-}
-
 const ShareUrl = ({ groups }) => {
   const [url, setUrl] = useState();
 
@@ -31,12 +26,12 @@ const ShareUrl = ({ groups }) => {
     }
 
     if ("clipboard" in navigator) {
-      copyUrlToClipboard(url);
+      navigator.clipboard.writeText(url);
+      alert("URL copiée dans le presse-papier");
       return;
     }
 
     setUrl(url);
-    alert(`Envoyez ${url} pour partager cette comparaison`);
   }
 
   return (

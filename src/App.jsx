@@ -2,6 +2,7 @@ import "./App.scss";
 import queryString from "query-string";
 import { React } from "react";
 import { QueryClientProvider } from "react-query";
+import ReactTooltip from "react-tooltip";
 
 import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
@@ -38,10 +39,9 @@ function App() {
               setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
             }}
           />
-
           <hr />
-
           <DeleteGroups groups={groups} setGroups={setGroups} />
+          <hr />
           <ShareUrl groups={groups} />
         </div>
       </header>
@@ -51,6 +51,8 @@ function App() {
       </main>
 
       <Footer />
+
+      <ReactTooltip multiline effect="solid" />
     </QueryClientProvider>
   );
 }

@@ -3,9 +3,9 @@ import React from "react";
 import { useQueries } from "react-query";
 
 import "./CompareSchedule.scss";
+
 import { compareDates, makeGetEdt } from "../../utils/ufc-edt";
 import Error from "../miscellaneous/Error";
-
 import Loading from "../miscellaneous/Loading";
 
 import ShowScheduleDay from "./ShowScheduleDay";
@@ -43,7 +43,7 @@ const CompareSchedule = ({ groups }) => {
     allResponses.map((response) => response.data)
   );
 
-  const numCols = Math.floor(Math.max(0, 7 - (Object.keys(groups).length / 2)));
+  const numCols = Math.floor(Math.max(0, 7 - Object.keys(groups).length / 2));
 
   return (
     <div className="compare-schedule" style={{ "--numCols": numCols }}>

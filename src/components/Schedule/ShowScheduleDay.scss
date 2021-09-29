@@ -15,6 +15,7 @@ table.schedule {
 
   td,
   th {
+    overflow: hidden;
     $padding: 0.2em;
     padding-left: $padding;
     padding-right: $padding;
@@ -37,10 +38,4 @@ table.schedule {
 
 .activity-item.not-available {
   background-color: color.scale($not-available, $alpha: -30%);
-}
-
-.hide-gain-space {
-  // @media screen and (max-width: $screen-smartphone-small) {
-  display: none;
-  // }
 }

@@ -16,6 +16,7 @@ const DeleteGroups = ({ groups, setGroups }) => {
       {Object.keys(groups).map((groupID) => (
         <button
           key={groupID}
+          data-tip={groups[groupID].replaceAll(">", "<br/>")}
           onClick={() => {
             setGroups((oldGroups) => {
               delete oldGroups[groupID];

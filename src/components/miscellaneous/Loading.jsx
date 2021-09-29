@@ -1,7 +1,13 @@
 import React from "react";
 
+import "./Loading.scss";
+
 const Loading = () => {
-  return <span>Chargement</span>;
+  return (
+    <div className="loading">
+      <>Chargement...</>
+    </div>
+  );
 };
 
 export default Loading;

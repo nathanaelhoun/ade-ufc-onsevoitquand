@@ -8,6 +8,12 @@
     display: grid;
     grid-template-columns: repeat(var(--numCols), 1fr);
   }
+
+  .hide-gain-space {
+    // @media screen and (max-width: $screen-smartphone-small) {
+    display: var(--compact-display, table-row);
+    // }
+  }
 }
 
 .day-schedule-comparison {

@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
+import ReactTooltip from "react-tooltip";
 
 import "./ShowScheduleDay.scss";
 
@@ -102,7 +103,7 @@ const ScheduleRow = ({ activities, nbGroups }) => {
           <td
             key={`${times[index]}`}
             className={classes}
-            title={`${activity.what} ${activity.where}`}
+            data-tip={`${activity.what} ${activity.where}`}
             style={{
               backgroundColor: `${activity.hexColor}90`,
             }}
@@ -130,14 +131,22 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
 
   const groupIDs = Object.keys(dayInformations);
 
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
+
   return (
     <table className="schedule">
       <tbody>
         <tr>
           <th className="title-time"></th>
           {groupIDs.map((groupID) => (
-            <th key={`group-id-${groupID}`} className="title-group" title={groups[groupID]}>
-              {groups[groupID].split(">").slice(-3).join(" > ")}
+            <th
+              key={`group-id-${groupID}`}
+              className="title-group"
+              data-tip={groups[groupID].replaceAll(">", "<br/>")}
+            >
+              {groups[groupID].split(">").slice(-3).join(" > ").slice(-30)}
             </th>
           ))}
         </tr>

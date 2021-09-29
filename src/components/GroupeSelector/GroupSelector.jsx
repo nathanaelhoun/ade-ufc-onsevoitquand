@@ -42,7 +42,11 @@ const GroupSelector = ({ initialID, addGroup }) => {
 
   const options = groupList ? groupList.map((el) => ({ value: el.id, label: el.name })) : [];
 
-const placeholder = isLoading ? 'Chargement' : groupList.length === 0 ? "Plus de choix" : "Choisissez un groupe"
+  const placeholder = isLoading
+    ? "Chargement"
+    : groupList.length === 0
+    ? "Plus de choix"
+    : "Choisissez un groupe";
 
   return (
     <div className="group-selector">
