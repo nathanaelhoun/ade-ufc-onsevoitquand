@@ -45,8 +45,6 @@ const CompareSchedule = ({ groups, config }) => {
     allResponses.map((response) => response.data)
   );
 
-  console.debug(variables, variables.maxColumns);
-
   const numCols = Math.max(
     0,
     parseInt(variables.maxColumns) - Math.floor(Object.keys(groups).length / 2)

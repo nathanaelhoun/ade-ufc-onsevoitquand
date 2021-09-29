@@ -149,7 +149,9 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
               className="title-group"
               data-tip={groups[groupID].replaceAll(">", "<br/>")}
             >
-              <div>{groups[groupID].split(">").slice(-3).join(">").slice(-30)}</div>
+              <div>
+                <div>{groups[groupID].split(">").slice(-3).join(">").slice(-30)}</div>
+              </div>
             </th>
           ))}
         </tr>

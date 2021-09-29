@@ -1,9 +1,8 @@
-import "./App.scss";
-import queryString from "query-string";
 import { React } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
+import "./App.scss";
 import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelector from "./components/GroupeSelector/GroupSelector";
 import ControlledCheckbox from "./components/miscellaneous/ControlledCheckbox";
@@ -15,19 +14,9 @@ import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
-const lsKey = "saved-groups";
-
 function App() {
-  // Initial loading from URL
-  if (window.location.search !== "") {
-    const { groups: JSONGroups } = queryString.parse(window.location.search);
-    const groups = JSON.parse(JSONGroups);
-    localStorage.setItem(lsKey, JSON.stringify(groups));
-    window.location.search = "";
-  }
-
   const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
-  const [groups, setGroups] = useLocalStorage(lsKey, {});
+  const [groups, setGroups] = useLocalStorage("saved-groups", {});
 
   return (
     <QueryClientProvider client={queryClient}>

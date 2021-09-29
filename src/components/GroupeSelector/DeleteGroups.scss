@@ -3,6 +3,8 @@
   flex-direction: row;
   gap: 0.5em;
 
+  overflow-x: scroll;
+
   & > * {
     width: 100%;
   }

@@ -6,14 +6,18 @@ table.schedule {
   table-layout: fixed;
 
   .head-row {
-    div {
+    th > div {
       width: 100%;
       height: 5em;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      display: flex;
+      flex-direction: column-reverse;
 
-      direction: rtl;
-      text-align: left;
+      div {
+        direction: rtl;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 

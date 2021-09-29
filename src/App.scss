@@ -74,7 +74,6 @@ $footer-height: 3em;
 
 #config {
   display: flex;
-  flex: row;
   flex-wrap: wrap;
   justify-content: space-between;
 
@@ -82,8 +81,8 @@ $footer-height: 3em;
     display: flex;
     align-items: center;
 
-    @media screen and (max-width: $screen-smartphone-small) {
-      margin-top: 0.5em;
+    @media not screen and (min-width: $screen-desktop) {
+      margin: 1em auto;
     }
   }
 }
