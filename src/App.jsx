@@ -32,7 +32,7 @@ function App() {
       } catch (error) {
         console.error(error, "groups:", newGroups);
         setError(
-          "Impossible de charger les groupes depuis le lien, veuillez les ajouter manuellement"
+          "Impossible de charger les groupes depuis le lien, essaie en copiant-collant directement le lien dans ton navigateur, ou ajoute les groupes manuellement"
         );
       }
     }
@@ -49,6 +49,9 @@ function App() {
             addGroup={(group) => {
               console.info("Adding group", group);
               setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
+              if (error) {
+                setError(false);
+              }
             }}
           />
           <hr />
