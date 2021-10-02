@@ -1,4 +1,5 @@
-import { React } from "react";
+import queryString from "query-string";
+import { React, useEffect, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
@@ -17,6 +18,25 @@ import { useLocalStorage } from "./utils/useLocalStorage";
 function App() {
   const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
   const [groups, setGroups] = useLocalStorage("saved-groups", {});
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    console.debug("test");
+    if (window.location.search !== "") {
+      let newGroups;
+      try {
+        const { groups: JSONGroups } = queryString.parse(window.location.search);
+        newGroups = JSON.parse(JSONGroups);
+        localStorage.setItem("saved-groups", JSON.stringify(newGroups));
+        window.location.search = "";
+      } catch (error) {
+        console.error(error, "groups:", newGroups);
+        setError(
+          "Impossible de charger les groupes depuis le lien, veuillez les ajouter manuellement"
+        );
+      }
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -56,6 +76,8 @@ function App() {
               <>Nombre de semaines</>
             </ControlledInput>
           </div>
+
+          {error && <pre className="error">{error}</pre>}
         </div>
       </header>
 
