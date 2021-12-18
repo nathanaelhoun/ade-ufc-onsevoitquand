@@ -66,7 +66,7 @@ header {
 	}
 }
 
-$footer-height: 3em;
+$footer-height: 5em;
 
 #root {
 	padding-bottom: $footer-height;
@@ -97,6 +97,10 @@ footer {
 	display: flex;
 	align-items: center;
 	align-content: center;
+
+	@media not screen and (min-width: $screen-desktop) {
+		flex-direction: column;
+	}
 
 	* {
 		margin: auto;
