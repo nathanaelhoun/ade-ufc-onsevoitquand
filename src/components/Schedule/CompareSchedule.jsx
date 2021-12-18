@@ -45,6 +45,10 @@ const CompareSchedule = ({ groups, config }) => {
 		allResponses.map((response) => response.data)
 	);
 
+	if (!byDays || Object.keys(byDays).length === 0) {
+		return <p style={{ textAlign: "center" }}>Aucun cours n'a été trouvé pour cette période.</p>;
+	}
+
 	const numCols = Math.max(
 		0,
 		parseInt(variables.maxColumns) - Math.floor(Object.keys(groups).length / 2)
