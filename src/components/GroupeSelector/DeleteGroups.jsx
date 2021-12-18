@@ -12,7 +12,7 @@ const DeleteGroups = ({ groups, setGroups }) => {
 
 	return (
 		<div className="delete-buttons">
-			<label>Supprimer des groupes :</label>
+			<label>Supprimer des groupes :</label>
 			{Object.keys(groups).map((groupID) => (
 				<button
 					key={groupID}
