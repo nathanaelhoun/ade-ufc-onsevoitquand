@@ -4,15 +4,15 @@ import React from "react";
 import "./Loading.scss";
 
 const Loading = ({ msg = "Chargement..." }) => {
-  return (
-    <div className="loading">
-      <>{msg}</>
-    </div>
-  );
+	return (
+		<div className="loading">
+			<>{msg}</>
+		</div>
+	);
 };
 
 Loading.propTypes = {
-  msg: PropTypes.string,
+	msg: PropTypes.string,
 };
 
 export default Loading;

@@ -16,71 +16,71 @@ import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {
-  const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
-  const [groups, setGroups] = useLocalStorage("saved-groups", {});
-  const [error, setError] = useState();
+	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
+	const [groups, setGroups] = useLocalStorage("saved-groups", {});
+	const [error, setError] = useState();
 
-  const loadGroups = window.location.search !== "";
+	const loadGroups = window.location.search !== "";
 
-  if (loadGroups) {
-    return <LoadURLConfig originalConfig={config} originalGroups={groups} />;
-  }
+	if (loadGroups) {
+		return <LoadURLConfig originalConfig={config} originalGroups={groups} />;
+	}
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <header>
-        <Title />
+	return (
+		<QueryClientProvider client={queryClient}>
+			<header>
+				<Title />
 
-        <div className="buttons">
-          <GroupSelector
-            groupId={0}
-            addGroup={(group) => {
-              console.info("Adding group", group);
-              setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
-              if (error) {
-                setError(false);
-              }
-            }}
-          />
-          <hr />
-          <DeleteGroups groups={groups} setGroups={setGroups} />
-          <hr />
-          <ShareUrl groups={groups} />
+				<div className="buttons">
+					<GroupSelector
+						groupId={0}
+						addGroup={(group) => {
+							console.info("Adding group", group);
+							setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
+							if (error) {
+								setError(false);
+							}
+						}}
+					/>
+					<hr />
+					<DeleteGroups groups={groups} setGroups={setGroups} />
+					<hr />
+					<ShareUrl groups={groups} />
 
-          <div id="config">
-            <ControlledCheckbox
-              id="config-compact"
-              value={config.isCompact}
-              handleInput={(ev) => setConfig((old) => ({ ...old, isCompact: ev.target.checked }))}
-              data-tip="Cache les heures libres dans tous les emplois du temps en début et en fin de journée"
-            >
-              <>Économiser de la place</>
-            </ControlledCheckbox>
-            <ControlledInput
-              id="config-weeks"
-              value={config.nbWeeks}
-              handleInput={(ev) =>
-                setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
-              }
-              data-tip="Nombre de semaines à afficher dans la comparaison"
-            >
-              <>Nombre de semaines</>
-            </ControlledInput>
-          </div>
+					<div id="config">
+						<ControlledCheckbox
+							id="config-compact"
+							value={config.isCompact}
+							handleInput={(ev) => setConfig((old) => ({ ...old, isCompact: ev.target.checked }))}
+							data-tip="Cache les heures libres dans tous les emplois du temps en début et en fin de journée"
+						>
+							<>Économiser de la place</>
+						</ControlledCheckbox>
+						<ControlledInput
+							id="config-weeks"
+							value={config.nbWeeks}
+							handleInput={(ev) =>
+								setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
+							}
+							data-tip="Nombre de semaines à afficher dans la comparaison"
+						>
+							<>Nombre de semaines</>
+						</ControlledInput>
+					</div>
 
-          {error && <pre className="error">{error}</pre>}
-        </div>
-      </header>
+					{error && <pre className="error">{error}</pre>}
+				</div>
+			</header>
 
-      <main>
-        <CompareSchedule groups={groups} config={config} />
-      </main>
+			<main>
+				<CompareSchedule groups={groups} config={config} />
+			</main>
 
-      <Footer />
+			<Footer />
 
-      <ReactTooltip multiline effect="solid" />
-    </QueryClientProvider>
-  );
+			<ReactTooltip multiline effect="solid" />
+		</QueryClientProvider>
+	);
 }
 
 export default App;

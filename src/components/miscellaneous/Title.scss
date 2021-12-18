@@ -1,15 +1,15 @@
 #title {
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	div {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 
-    * {
-      display: inline;
-    }
+		* {
+			display: inline;
+		}
 
-    #icon {
-      margin-left: 15px;
-    }
-  }
+		#icon {
+			margin-left: 15px;
+		}
+	}
 }

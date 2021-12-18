@@ -1,49 +1,49 @@
 @import "../../variables.module.scss";
 
 .compare-schedule {
-  width: 100%;
-  --numCols: 5;
+	width: 100%;
+	--numCols: 5;
 
-  @media screen and (min-width: $screen-desktop) {
-    display: grid;
-    grid-template-columns: repeat(var(--numCols), 1fr);
-  }
+	@media screen and (min-width: $screen-desktop) {
+		display: grid;
+		grid-template-columns: repeat(var(--numCols), 1fr);
+	}
 
-  &.compact .hide-gain-space {
-    display: none;
-  }
+	&.compact .hide-gain-space {
+		display: none;
+	}
 
-  .day-schedule-comparison {
-    @media screen and (max-width: $screen-smartphone-small) {
-      width: 100%;
-    }
+	.day-schedule-comparison {
+		@media screen and (max-width: $screen-smartphone-small) {
+			width: 100%;
+		}
 
-    h3 {
-      text-align: center;
-    }
+		h3 {
+			text-align: center;
+		}
 
-    table {
-      width: 100%;
-    }
-  }
+		table {
+			width: 100%;
+		}
+	}
 
-  @media screen and (min-width: $screen-desktop) {
-    &:not(.compact) {
-      .day-schedule-comparison {
-        .title-time {
-          display: none;
-        }
-      }
+	@media screen and (min-width: $screen-desktop) {
+		&:not(.compact) {
+			.day-schedule-comparison {
+				.title-time {
+					display: none;
+				}
+			}
 
-      @for $i from 1 through $max-columns {
-        &.columns-#{$i} .day-schedule-comparison:first-child,
-        &.columns-#{$i} .day-schedule-comparison:nth-child(#{$i}n + 1) {
-          th.title-time,
-          td.title-time {
-            display: table-cell;
-          }
-        }
-      }
-    }
-  }
+			@for $i from 1 through $max-columns {
+				&.columns-#{$i} .day-schedule-comparison:first-child,
+				&.columns-#{$i} .day-schedule-comparison:nth-child(#{$i}n + 1) {
+					th.title-time,
+					td.title-time {
+						display: table-cell;
+					}
+				}
+			}
+		}
+	}
 }
