@@ -1,5 +1,4 @@
-import queryString from "query-string";
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
@@ -11,6 +10,7 @@ import ControlledInput from "./components/miscellaneous/ControlledInput";
 import Footer from "./components/miscellaneous/Footer";
 import Title from "./components/miscellaneous/Title";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
+import LoadURLConfig from "./components/Share/LoadURLConfig";
 import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
@@ -20,23 +20,11 @@ function App() {
   const [groups, setGroups] = useLocalStorage("saved-groups", {});
   const [error, setError] = useState();
 
-  useEffect(() => {
-    console.debug("test");
-    if (window.location.search !== "") {
-      let newGroups;
-      try {
-        const { groups: JSONGroups } = queryString.parse(window.location.search);
-        newGroups = JSON.parse(JSONGroups);
-        localStorage.setItem("saved-groups", JSON.stringify(newGroups));
-        window.location.search = "";
-      } catch (error) {
-        console.error(error, "groups:", newGroups);
-        setError(
-          "Impossible de charger les groupes depuis le lien, essaie en copiant-collant directement le lien dans ton navigateur, ou ajoute les groupes manuellement"
-        );
-      }
-    }
-  }, []);
+  const loadGroups = window.location.search !== "";
+
+  if (loadGroups) {
+    return <LoadURLConfig originalConfig={config} originalGroups={groups} />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

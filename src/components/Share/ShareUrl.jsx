@@ -16,9 +16,7 @@ const ShareUrl = ({ groups }) => {
 
   function shareUrl() {
     const url =
-      window.location.href.replace(/[?]$/, "") +
-      "?groups=" +
-      encodeURIComponent(JSON.stringify(groups));
+      window.location.href.replace(/[?]$/, "") + "?ids=" + Object.keys(groups).join("&ids=");
 
     if (navigator.share) {
       shareWithOS(url);

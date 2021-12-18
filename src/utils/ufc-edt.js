@@ -66,6 +66,31 @@ export function makeGetSubgroups(groupId) {
   };
 }
 
+export function makeGetHierarchyToSubgroup(subGroupId) {
+  async function recursiveRequest(current, previous) {
+    const rawData = (await axios.get(`/api/v1/wmselect.jsp?id=${current}`)).data.trim();
+    const parentMatches = /^1;([0-9]+);\.\.$/m.exec(rawData);
+
+    const groupName = new RegExp(`^1;${previous};(.+?)(?:;.*)?$`, "m").exec(rawData)?.[1] ?? "";
+
+    if (parentMatches === null) {
+      // This is root parent
+      return groupName;
+    }
+
+    const parentID = parseInt(parentMatches[1]);
+
+    if (groupName === "") {
+      // This is first call without previous
+      return (await recursiveRequest(parentID, current));
+    }
+
+    return (await recursiveRequest(parentID, current)) + " > " + groupName;
+  }
+
+  return async () => ({ [subGroupId]: await recursiveRequest(subGroupId) });
+}
+
 export function compareDates(date1, date2) {
   const frenchMonths = [
     "Septembre",

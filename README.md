@@ -6,6 +6,10 @@ An easy way to find when you can meet your mates in the University of Franche-Co
 
 Trouver un créneau pour se voir entre étudiants de l'UFC.
 
+## Development
+
+Run `npm install` then `npm start` to launch the development version, powered by [Create React App](https://create-react-app.dev/)
+
 ## Deploy
 
 To avoid CORS issues, the ADE API has to be proxied by the app. Nginx config for reference:
