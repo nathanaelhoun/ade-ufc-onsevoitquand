@@ -112,3 +112,15 @@ footer {
 	color: red;
 	white-space: pre-wrap;
 }
+
+.mobile {
+	display: none;
+}
+@media not screen and (min-width: $screen-desktop) {
+	.desktop {
+		display: none;
+	}
+	.mobile {
+		display: unset;
+	}
+}
