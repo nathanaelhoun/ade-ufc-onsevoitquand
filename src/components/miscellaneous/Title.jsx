@@ -25,7 +25,7 @@ const Title = () => (
 		</p>
 
 		<p className="help">
-			Conseil : 
+			Conseil :
 			<span className="mobile">
 				un appui long sur les noms de groupe raccourcis fait apparaître le nom entier.
 			</span>

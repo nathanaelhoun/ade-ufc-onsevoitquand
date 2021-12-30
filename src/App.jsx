@@ -1,3 +1,8 @@
+import AddIcon from "@mui/icons-material/Add";
+import ShareIcon from "@mui/icons-material/Share";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import { React, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
@@ -11,9 +16,10 @@ import Footer from "./components/miscellaneous/Footer";
 import Title from "./components/miscellaneous/Title";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
 import LoadURLConfig from "./components/Share/LoadURLConfig";
-import ShareUrl from "./components/Share/ShareUrl";
 import queryClient from "./utils/queryClient";
+import { shareGroupsUrl } from "./utils/share";
 import { useLocalStorage } from "./utils/useLocalStorage";
+
 
 function App() {
 	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
@@ -45,7 +51,6 @@ function App() {
 					<hr />
 					<DeleteGroups groups={groups} setGroups={setGroups} />
 					<hr />
-					<ShareUrl groups={groups} />
 
 					<div id="config">
 						<ControlledCheckbox
@@ -77,6 +82,20 @@ function App() {
 			</main>
 
 			<Footer />
+
+			<SpeedDial
+				ariaLabel="Actions supplémentaires"
+				sx={{ position: "fixed", bottom: 16, right: 16 }}
+				icon={<SpeedDialIcon />}
+			>
+				<SpeedDialAction icon={<AddIcon />} tooltipTitle="Ajouter un groupe" tooltipOpen />
+				<SpeedDialAction
+					icon={<ShareIcon />}
+					tooltipTitle="Partager la comparaison actuelle"
+					tooltipOpen
+					onClick={() => shareGroupsUrl(groups)}
+				/>
+			</SpeedDial>
 
 			<ReactTooltip multiline effect="solid" />
 		</QueryClientProvider>
