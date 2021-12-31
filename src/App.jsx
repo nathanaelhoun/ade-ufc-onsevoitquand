@@ -2,7 +2,8 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ShareIcon from "@mui/icons-material/Share";
-import Fab from '@mui/material/Fab';
+import Backdrop from "@mui/material/Backdrop";
+import Fab from "@mui/material/Fab";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import { React, useState } from "react";
@@ -10,7 +11,6 @@ import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
 import "./App.scss";
-import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
 import GroupSelectorModal from "./components/GroupeSelector/GroupSelectorModal";
 import ControlledCheckbox from "./components/miscellaneous/ControlledCheckbox";
 import ControlledInput from "./components/miscellaneous/ControlledInput";
@@ -28,6 +28,7 @@ function App() {
 	const [error, setError] = useState();
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
+	const [isMenuOpened, setIsMenuOpened] = useState(false);
 
 	const loadGroups = window.location.search !== "";
 
@@ -41,18 +42,6 @@ function App() {
 				<Title />
 
 				<div className="buttons">
-					{/* <GroupSelector
-						groupId={0}
-						addGroup={(group) => {
-							console.info("Adding group", group);
-							setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
-							if (error) {
-								setError(false);
-							}
-						}}
-					/> */}
-					<hr />
-					<DeleteGroups groups={groups} setGroups={setGroups} />
 					<hr />
 
 					<div id="config">
@@ -99,11 +88,15 @@ function App() {
 				}}
 			/>
 
+			<Backdrop open={isMenuOpened} />
 			<SpeedDial
 				ariaLabel="Actions supplémentaires"
 				sx={{ position: "fixed", bottom: 16, right: 16 }}
 				icon={<GroupsIcon />}
 				// TODO make the background darker to increase contrast lol
+				onOpen={() => setIsMenuOpened(true)}
+				onClose={() => setIsMenuOpened(false)}
+				open={isMenuOpened}
 			>
 				<SpeedDialAction
 					icon={<GroupAddIcon />}
@@ -112,12 +105,20 @@ function App() {
 					onClick={() => setIsAddGroupModalOpened(true)}
 				/>
 
-				<SpeedDialAction
-					icon={<GroupRemoveIcon />}
-					// tooltipOpen
-					tooltipTitle="Groupe A Blabla"
-					onClick={() => console.log("todo")}
-				/>
+				{Object.keys(groups).map((groupID) => (
+					<SpeedDialAction
+						key={groupID}
+						icon={<GroupRemoveIcon />}
+						// tooltipOpen
+						tooltipTitle={groups[groupID].split(">").slice(-1)}
+						onClick={() => {
+							setGroups((oldGroups) => {
+								delete oldGroups[groupID];
+								return { ...oldGroups };
+							});
+						}}
+					/>
+				))}
 			</SpeedDial>
 
 			<Fab
