@@ -37,6 +37,7 @@ table.schedule {
 
 		&.activity-item.not-available {
 			background-color: color.scale($not-available, $alpha: -30%);
+			color: white;
 		}
 
 		.container {

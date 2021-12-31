@@ -1,15 +1,17 @@
-import AddIcon from "@mui/icons-material/Add";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
+import GroupsIcon from "@mui/icons-material/Groups";
 import ShareIcon from "@mui/icons-material/Share";
+import Fab from '@mui/material/Fab';
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import { React, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
 import "./App.scss";
 import DeleteGroups from "./components/GroupeSelector/DeleteGroups";
-import GroupSelector from "./components/GroupeSelector/GroupSelector";
+import GroupSelectorModal from "./components/GroupeSelector/GroupSelectorModal";
 import ControlledCheckbox from "./components/miscellaneous/ControlledCheckbox";
 import ControlledInput from "./components/miscellaneous/ControlledInput";
 import Footer from "./components/miscellaneous/Footer";
@@ -20,11 +22,12 @@ import queryClient from "./utils/queryClient";
 import { shareGroupsUrl } from "./utils/share";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
-
 function App() {
 	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups", {});
 	const [error, setError] = useState();
+
+	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
 
 	const loadGroups = window.location.search !== "";
 
@@ -38,7 +41,7 @@ function App() {
 				<Title />
 
 				<div className="buttons">
-					<GroupSelector
+					{/* <GroupSelector
 						groupId={0}
 						addGroup={(group) => {
 							console.info("Adding group", group);
@@ -47,7 +50,7 @@ function App() {
 								setError(false);
 							}
 						}}
-					/>
+					/> */}
 					<hr />
 					<DeleteGroups groups={groups} setGroups={setGroups} />
 					<hr />
@@ -83,19 +86,50 @@ function App() {
 
 			<Footer />
 
+			<GroupSelectorModal
+				isOpen={isAddGroupModalOpened}
+				handleClose={() => setIsAddGroupModalOpened(false)}
+				groupId={0}
+				addGroup={(group) => {
+					console.info("Adding group", group);
+					setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
+					if (error) {
+						setError(false);
+					}
+				}}
+			/>
+
 			<SpeedDial
 				ariaLabel="Actions supplémentaires"
 				sx={{ position: "fixed", bottom: 16, right: 16 }}
-				icon={<SpeedDialIcon />}
+				icon={<GroupsIcon />}
+				// TODO make the background darker to increase contrast lol
 			>
-				<SpeedDialAction icon={<AddIcon />} tooltipTitle="Ajouter un groupe" tooltipOpen />
 				<SpeedDialAction
-					icon={<ShareIcon />}
-					tooltipTitle="Partager la comparaison actuelle"
-					tooltipOpen
-					onClick={() => shareGroupsUrl(groups)}
+					icon={<GroupAddIcon />}
+					tooltipTitle="Ajouter un groupe"
+					// tooltipOpen
+					onClick={() => setIsAddGroupModalOpened(true)}
+				/>
+
+				<SpeedDialAction
+					icon={<GroupRemoveIcon />}
+					// tooltipOpen
+					tooltipTitle="Groupe A Blabla"
+					onClick={() => console.log("todo")}
 				/>
 			</SpeedDial>
+
+			<Fab
+				color="primary"
+				aria-label="add"
+				sx={{ position: "fixed", bottom: 16, right: 78 }}
+				// tooltipTitle="Partager la comparaison actuelle"
+				// tooltipOpen
+				onClick={() => shareGroupsUrl(groups)}
+			>
+				<ShareIcon />
+			</Fab>
 
 			<ReactTooltip multiline effect="solid" />
 		</QueryClientProvider>

@@ -83,7 +83,7 @@ const ScheduleRow = ({ activities, nbGroups }) => {
 		activities.every((a) => a === false || a === null);
 
 	if (available) {
-		return <td colSpan={activities.length} className="activity-item available"></td>;
+		return activities.map((_, i) => <td key={i} className="activity-item available"></td>);
 	}
 
 	const classes = "activity-item " + (available ? "available" : "not-available");
@@ -105,7 +105,7 @@ const ScheduleRow = ({ activities, nbGroups }) => {
 						className={classes}
 						data-tip={`${activity.what} ${activity.where}`}
 						style={{
-							backgroundColor: `${activity.hexColor}90`,
+							// backgroundColor: `${activity.hexColor}90`,
 							"--rowspan": activity.duration ?? 1,
 						}}
 						rowSpan={activity.duration ?? 1}
