@@ -24,7 +24,7 @@ import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {
 	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
-	const [groups, setGroups] = useLocalStorage("saved-groups", {});
+	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 	const [error, setError] = useState();
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
@@ -82,9 +82,6 @@ function App() {
 				addGroup={(group) => {
 					console.info("Adding group", group);
 					setGroups((oldList) => ({ ...oldList, [group.id]: group.path }));
-					// if (error) {
-					// 	setError(false);
-					// }
 				}}
 			/>
 
@@ -109,7 +106,7 @@ function App() {
 						key={groupID}
 						icon={<GroupRemoveIcon />}
 						// tooltipOpen
-						tooltipTitle={groups[groupID].split(">").slice(-1)}
+						tooltipTitle={groups[groupID].join(" > ")}
 						onClick={() => {
 							setGroups((oldGroups) => {
 								delete oldGroups[groupID];
