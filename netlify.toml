@@ -1,3 +1,4 @@
+
 [[redirects]]
   from = "/api/v1/*"
   to = "https://sedna.univ-fcomte.fr/jsp/custom/ufc/:splat"
