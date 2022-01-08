@@ -8,7 +8,7 @@ export function makeGetEdt(groupId, days = 14) {
 
 		const rawData = (
 			await axios.get(
-				`https://ade-ufc-onsevoitquand.nathanaelhoun.fr/api/v1/wmplanif.jsp?id=${groupId}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
+				`/api/v1/wmplanif.jsp?id=${groupId}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
 			)
 		).data;
 
@@ -52,7 +52,7 @@ export function makeGetEdt(groupId, days = 14) {
 
 export function makeGetSubgroups(groupId) {
 	return async () => {
-		const rawData = (await axios.get(`https://ade-ufc-onsevoitquand.nathanaelhoun.fr/api/v1/wmselect.jsp?id=${groupId}`)).data;
+		const rawData = (await axios.get(`/api/v1/wmselect.jsp?id=${groupId}`)).data;
 
 		return rawData
 			.split("\n")
@@ -68,7 +68,7 @@ export function makeGetSubgroups(groupId) {
 
 export function makeGetHierarchyToSubgroup(subGroupId) {
 	async function recursiveRequest(current, previous) {
-		const rawData = (await axios.get(`https://ade-ufc-onsevoitquand.nathanaelhoun.fr/api/v1/wmselect.jsp?id=${current}`)).data.trim();
+		const rawData = (await axios.get(`/api/v1/wmselect.jsp?id=${current}`)).data.trim();
 		const parentMatches = /^1;([0-9]+);\.\.$/m.exec(rawData);
 
 		const groupName = new RegExp(`^1;${previous};(.+?)(?:;.*)?$`, "m").exec(rawData)?.[1] ?? "";

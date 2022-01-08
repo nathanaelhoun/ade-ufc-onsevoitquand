@@ -12,7 +12,10 @@ Run `npm install` then `npm start` to launch the development version, powered by
 
 ## Deploy
 
-To avoid CORS issues, the ADE API has to be proxied by the app. Nginx config for reference:
+To avoid CORS issues, the ADE API has to be proxied by the app. 
+The provided `netlify.toml` config includes this functionnality.  
+
+If you need it, here is the nginx config for reference:
 ```nginx
     location /api/v1/ {
         rewrite ^/api/v1/(.*)$ /jsp/custom/ufc/$1 break;
