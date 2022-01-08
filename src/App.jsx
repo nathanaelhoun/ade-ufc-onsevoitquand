@@ -25,7 +25,6 @@ import { useLocalStorage } from "./utils/useLocalStorage";
 function App() {
 	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
-	const [error, setError] = useState();
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -64,8 +63,6 @@ function App() {
 							<>Nombre de semaines</>
 						</ControlledInput>
 					</div>
-
-					{error && <pre className="error">{error}</pre>}
 				</div>
 			</header>
 
