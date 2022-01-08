@@ -78,13 +78,13 @@ function App() {
 			<GroupSelectorModal
 				isOpen={isAddGroupModalOpened}
 				handleClose={() => setIsAddGroupModalOpened(false)}
-				groupId={0}
+				initialID={0}
 				addGroup={(group) => {
 					console.info("Adding group", group);
-					setGroups((oldList) => ({ ...oldList, [group.id]: group.name }));
-					if (error) {
-						setError(false);
-					}
+					setGroups((oldList) => ({ ...oldList, [group.id]: group.path }));
+					// if (error) {
+					// 	setError(false);
+					// }
 				}}
 			/>
 
@@ -93,7 +93,6 @@ function App() {
 				ariaLabel="Actions supplémentaires"
 				sx={{ position: "fixed", bottom: 16, right: 16 }}
 				icon={<GroupsIcon />}
-				// TODO make the background darker to increase contrast lol
 				onOpen={() => setIsMenuOpened(true)}
 				onClose={() => setIsMenuOpened(false)}
 				open={isMenuOpened}

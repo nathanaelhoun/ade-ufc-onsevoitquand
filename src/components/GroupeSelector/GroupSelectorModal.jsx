@@ -1,15 +1,16 @@
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useTheme } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PropTypes } from "prop-types";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import Select from "react-select";
 
 import { makeGetSubgroups } from "../../utils/ufc-edt";
 import Error from "../miscellaneous/Error";
@@ -18,28 +19,19 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 	const theme = useTheme();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-	const [value, setValue] = useState();
-	const [previousChoices, setPreviousChoices] = useState([]);
-	const [currentChoice, setCurrentChoice] = useState({
-		id: initialID,
-		name: "UFC",
-	});
+	const [inputValue, setInputValue] = useState("");
+	const [currentID, setCurrentID] = useState(initialID);
+	const [choices, setChoices] = useState([]);
 
 	const {
 		data: groupList,
 		isLoading,
 		isError,
-	} = useQuery(["group", currentChoice.id], makeGetSubgroups(currentChoice.id));
+	} = useQuery(["group", currentID], makeGetSubgroups(currentID));
 
 	if (isError) return <Error />;
 
-	const options = groupList ? groupList.map((el) => ({ value: el.id, label: el.name })) : [];
-
-	const placeholder = isLoading
-		? "Chargement"
-		: groupList.length === 0
-		? "Plus de choix"
-		: "Choisissez un groupe";
+	const options = groupList ? groupList?.map((el) => ({ value: el.id, label: el.name })) : [];
 
 	return (
 		<Dialog
@@ -49,64 +41,79 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 			aria-labelledby="responsive-dialog-title"
 			fullWidth={true}
 		>
-			<DialogTitle id="responsive-dialog-title">Choisissez un groupe à rajouter</DialogTitle>
+			<DialogTitle id="responsive-dialog-title">Ajouter un groupe</DialogTitle>
 
 			<DialogContent
 				style={{
-					minHeight: "25rem",
+					minHeight: "20rem",
 				}}
 			>
-				<Select
-					value={value}
-					id="group-select"
-					maxMenuHeight="20rem"
-					isLoading={isLoading}
-					isDisabled={!isLoading && groupList.length === 0}
-					placeholder={placeholder}
-					options={options}
-					onChange={selectValue}
-				/>
+				{choices.map((group) => (
+					<Autocomplete
+						key={group.id}
+						sx={{ my: 2 }}
+						options={[]}
+						inputValue={group.name}
+						renderInput={(params) => <TextField {...params} label="Groupe choisi" />}
+						disabled={true}
+					/>
+				))}
 
-				<Button
-					variant="outlined"
-					size="small"
-					disabled={isLoading || previousChoices.length === 0}
-					onClick={() => setCurrentChoice(popPreviousChoice)}
-					startIcon={<ArrowBackIcon />}
-				>
-					Revenir à {previousChoices[previousChoices.length - 1]?.name}
-				</Button>
+				{(isLoading || options.length > 0) && (
+					<Autocomplete
+						options={options}
+						loading={isLoading}
+						value={null}
+						inputValue={inputValue}
+						onInputChange={(ev, newInput) => setInputValue(newInput)}
+						onChange={selectGroup}
+						openOnFocus
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								label="Choisissez un groupe"
+								InputProps={{
+									...params.InputProps,
+									endAdornment: (
+										<>
+											{isLoading && <CircularProgress color="inherit" size={20} />}
+											{params.InputProps.endAdornment} {/** TODO keep ?*/}
+										</>
+									),
+								}}
+							/>
+						)}
+					/>
+				)}
 			</DialogContent>
 
 			<DialogActions>
-				<Button onClick={handleClose}>Annuler</Button>
-				<Button
-					disabled={isLoading || groupList.length !== 0}
-					onClick={() => {
-						addGroup({ id: currentChoice.id, name: getGroupPath() });
-						handleClose();
-					}}
-				>
+				<Button onClick={clearAndClose}>Annuler</Button>
+				<Button disabled={isLoading || groupList.length !== 0} onClick={validateAndClose}>
 					Ajouter le groupe
 				</Button>
 			</DialogActions>
 		</Dialog>
 	);
 
-	function popPreviousChoice() {
-		const lastPreviousChoice = previousChoices[previousChoices.length - 1];
-		setPreviousChoices((previousChoices) => previousChoices.slice(0, -1));
-		return lastPreviousChoice;
+	function selectGroup(_, newGroup) {
+		setChoices((old) => [...old, { id: newGroup.value, name: newGroup.label }]);
+		setCurrentID(newGroup.value);
+		setInputValue("");
 	}
 
-	function getGroupPath() {
-		return [...previousChoices.slice(1), currentChoice].map(({ name }) => name).join(" > ");
+	function clearAndClose() {
+		setChoices([]);
+		setCurrentID(initialID);
+		handleClose();
 	}
 
-	function selectValue({ value, label }) {
-		setPreviousChoices((old) => [...old, currentChoice]);
-		setCurrentChoice({ id: value, name: label });
-		setValue(null);
+	function validateAndClose() {
+		addGroup({
+			id: currentID,
+			path: choices.map(({ name }) => name),
+		});
+		clearAndClose();
 	}
 };
 
