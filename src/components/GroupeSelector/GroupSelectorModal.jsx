@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
@@ -45,9 +46,14 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 
 			<DialogContent
 				style={{
-					minHeight: "20rem",
+					minHeight: "25rem",
 				}}
 			>
+				<Box sx={{ mb: "1rem" }}>
+					Vous pouvez choisir un groupe qui en englobe plusieurs. Attention cependant : s'il est
+					trop haut dans la hiérarchie, l'application ne pourra pas charger les emplois du temps.
+				</Box>
+
 				{choices.map((group) => (
 					<Autocomplete
 						key={group.id}
@@ -89,8 +95,8 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 
 			<DialogActions>
 				<Button onClick={clearAndClose}>Annuler</Button>
-				<Button disabled={isLoading || groupList.length !== 0} onClick={validateAndClose}>
-					Ajouter le groupe
+				<Button disabled={isLoading || choices.length === 0} onClick={validateAndClose}>
+					Ajouter le groupe {choices[choices.length - 1]?.name}
 				</Button>
 			</DialogActions>
 		</Dialog>

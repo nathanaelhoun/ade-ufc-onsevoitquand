@@ -12,6 +12,12 @@ export function makeGetEdt(groupId, days = 14) {
 			)
 		).data;
 
+		if (rawData.includes("Nb maxi de lignes atteint (250)")) {
+			throw new Error(
+				"Les groupes que vous avez choisis sont trop grands, veuillez choisir de plus petits groupes."
+			);
+		}
+
 		const byDay = {};
 
 		rawData

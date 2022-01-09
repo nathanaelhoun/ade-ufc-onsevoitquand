@@ -37,8 +37,13 @@ const CompareSchedule = ({ groups, config }) => {
 		}))
 	);
 
-	if (allResponses.some((e) => e.isLoading)) return <Loading />;
-	if (allResponses.some((e) => e.error)) return <Error />;
+	if (allResponses.some((r) => r.isLoading)) return <Loading />;
+	if (allResponses.some((r) => r.error))
+		return (
+			<Error
+				msg={allResponses.reduce((acc, r) => acc + (r.isError ? "<br/>" + r.error : ""), "")}
+			/>
+		);
 
 	const byDays = regroupByDay(
 		groups,
