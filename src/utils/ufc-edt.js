@@ -81,7 +81,7 @@ export function makeGetHierarchyToSubgroup(subGroupId) {
 
 		if (parentMatches === null) {
 			// This is root parent
-			return groupName;
+			return [groupName];
 		}
 
 		const parentID = parseInt(parentMatches[1]);
@@ -91,7 +91,7 @@ export function makeGetHierarchyToSubgroup(subGroupId) {
 			return await recursiveRequest(parentID, current);
 		}
 
-		return (await recursiveRequest(parentID, current)) + " > " + groupName;
+		return [...(await recursiveRequest(parentID, current)), groupName];
 	}
 
 	return async () => ({ [subGroupId]: await recursiveRequest(subGroupId) });

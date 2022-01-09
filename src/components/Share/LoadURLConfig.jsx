@@ -94,7 +94,7 @@ const LoadURLConfig = ({ originalConfig, originalGroups }) => {
 		const newGroups = { ...groupsFromJSON, ...groupsFromIDs };
 
 		if (Object.keys(newGroups).length > 0) {
-			localStorage.setItem("saved-groups", JSON.stringify(newGroups));
+			localStorage.setItem("saved-groups-v2", JSON.stringify(newGroups));
 		}
 
 		window.location.search = "";

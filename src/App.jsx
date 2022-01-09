@@ -124,9 +124,7 @@ function App() {
 			<Fab
 				color="primary"
 				aria-label="add"
-				sx={{ position: "fixed", bottom: 16, right: 78 }}
-				// tooltipTitle="Partager la comparaison actuelle"
-				// tooltipOpen
+				sx={{ position: "fixed", bottom: 16, right: 80 }}
 				onClick={() => shareGroupsUrl(groups)}
 			>
 				<ShareIcon />
