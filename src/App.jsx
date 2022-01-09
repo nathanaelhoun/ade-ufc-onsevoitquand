@@ -3,6 +3,7 @@ import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ShareIcon from "@mui/icons-material/Share";
 import Backdrop from "@mui/material/Backdrop";
+import { green, red } from "@mui/material/colors";
 import Fab from "@mui/material/Fab";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
@@ -93,6 +94,7 @@ function App() {
 			>
 				<SpeedDialAction
 					icon={<GroupAddIcon />}
+					sx={{ color: green[500] }}
 					tooltipTitle="Ajouter un groupe"
 					// tooltipOpen
 					onClick={() => setIsAddGroupModalOpened(true)}
@@ -102,6 +104,7 @@ function App() {
 					<SpeedDialAction
 						key={groupID}
 						icon={<GroupRemoveIcon />}
+						sx={{ color: red[600] }}
 						// tooltipOpen
 						tooltipTitle={groups[groupID].join(" > ")}
 						onClick={() => {

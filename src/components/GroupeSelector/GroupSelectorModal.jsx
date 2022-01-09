@@ -1,3 +1,4 @@
+import ClearIcon from "@mui/icons-material/Clear";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -7,6 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
@@ -54,13 +56,22 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 					trop haut dans la hiérarchie, l'application ne pourra pas charger les emplois du temps.
 				</Box>
 
-				{choices.map((group) => (
+				{choices.map((group, i) => (
 					<Autocomplete
 						key={group.id}
 						sx={{ my: 2 }}
 						options={[]}
 						inputValue={group.name}
-						renderInput={(params) => <TextField {...params} label="Groupe choisi" />}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								label={`Groupe choisi ${i}`}
+								InputProps={{
+									...params.InputProps,
+									endAdornment: <ClearIcon onClick={() => removeGroupsFrom(i)} />,
+								}}
+							/>
+						)}
 						disabled={true}
 					/>
 				))}
@@ -94,9 +105,11 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 			</DialogContent>
 
 			<DialogActions>
-				<Button onClick={clearAndClose}>Annuler</Button>
+				<Button onClick={clearAndClose} sx={{ ml: "1rem" }}>
+					<Typography>Annuler</Typography>
+				</Button>
 				<Button disabled={isLoading || choices.length === 0} onClick={validateAndClose}>
-					Ajouter le groupe {choices[choices.length - 1]?.name}
+					<Typography noWrap>Ajouter le groupe {choices[choices.length - 1]?.name}</Typography>
 				</Button>
 			</DialogActions>
 		</Dialog>
@@ -106,6 +119,13 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 		setChoices((old) => [...old, { id: newGroup.value, name: newGroup.label }]);
 		setCurrentID(newGroup.value);
 		setInputValue("");
+	}
+
+	function removeGroupsFrom(index) {
+		const newCurrentID = index > 0 ? choices[index - 1].id : initialID;
+
+		setCurrentID(newCurrentID);
+		setChoices(choices.slice(0, index));
 	}
 
 	function clearAndClose() {
