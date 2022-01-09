@@ -1,18 +1,19 @@
 import React from "react";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 import "./Title.scss";
-import { ReactComponent as LogoIcon } from "../../assets/logo.svg";
 
 const Title = () => (
 	<div id="title">
 		<div>
 			<h1>OnSeVoitQuand?</h1>
-			<LogoIcon
+			<EventAvailableIcon
 				id="icon"
+				sx={{
+					height: "50px",
+					width: "50px",
+				}}
 				alt="Icône de calendrier"
-				height="50px"
-				width="50px"
-				style={{ color: "var(--text-color)" }}
 			/>
 		</div>
 		<p>
@@ -21,7 +22,11 @@ const Title = () => (
 			<a href="https://github.com/nathanaelhoun/ade-ufc-onsevoitquand/">
 				<code>Code source</code>
 			</a>{" "}
-			par <a href="https://nathanaelhoun.fr/">@nathanaelhoun</a>.{" "}
+			par <a href="https://nathanaelhoun.fr/">@nathanaelhoun</a>. Icône et styles : bibliothèque{" "}
+			<a href="https://mui.com/" target="_blank" rel="noreferrer">
+				<code>mui</code>
+			</a>
+			.
 		</p>
 
 		<p className="help">
