@@ -13,7 +13,6 @@ import ReactTooltip from "react-tooltip";
 
 import "./App.scss";
 import GroupSelectorModal from "./components/GroupeSelector/GroupSelectorModal";
-import ControlledCheckbox from "./components/miscellaneous/ControlledCheckbox";
 import ControlledInput from "./components/miscellaneous/ControlledInput";
 import Footer from "./components/miscellaneous/Footer";
 import Title from "./components/miscellaneous/Title";
@@ -24,7 +23,7 @@ import { shareGroupsUrl } from "./utils/share";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {
-	const [config, setConfig] = useLocalStorage("config", { isCompact: true, nbWeeks: 2 });
+	const [config, setConfig] = useLocalStorage("config", { nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
@@ -45,14 +44,6 @@ function App() {
 					<hr />
 
 					<div id="config">
-						<ControlledCheckbox
-							id="config-compact"
-							value={config.isCompact}
-							handleInput={(ev) => setConfig((old) => ({ ...old, isCompact: ev.target.checked }))}
-							data-tip="Cache les heures libres dans tous les emplois du temps en début et en fin de journée"
-						>
-							<>Économiser de la place</>
-						</ControlledCheckbox>
 						<ControlledInput
 							id="config-weeks"
 							value={config.nbWeeks}

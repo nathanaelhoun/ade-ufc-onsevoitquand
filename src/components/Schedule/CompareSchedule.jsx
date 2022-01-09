@@ -64,10 +64,7 @@ const CompareSchedule = ({ groups, config }) => {
 	);
 
 	return (
-		<div
-			className={`compare-schedule columns-${numCols} ${config.isCompact ? "compact" : ""}`}
-			style={{ "--numCols": numCols }}
-		>
+		<div className={`compare-schedule columns-${numCols}`} style={{ "--numCols": numCols }}>
 			{Object.keys(byDays).map((day) => (
 				<div className="day-schedule-comparison" key={`day-${day}`}>
 					<hr />
@@ -84,7 +81,6 @@ CompareSchedule.propTypes = {
 	groups: PropTypes.object,
 	day: PropTypes.string,
 	config: PropTypes.shape({
-		isCompact: PropTypes.bool,
 		nbWeeks: PropTypes.number,
 	}),
 };
