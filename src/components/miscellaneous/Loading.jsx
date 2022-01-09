@@ -1,11 +1,9 @@
 import { PropTypes } from "prop-types";
 import React from "react";
 
-import "./Loading.scss";
-
 const Loading = ({ msg = "Chargement..." }) => {
 	return (
-		<div className="loading">
+		<div style={{ textAlign: "center" }}>
 			<>{msg}</>
 		</div>
 	);

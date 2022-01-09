@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// To everyone that will one day open this file: I'm really sorry for this code.
+// Explore the API and you will understand the processing done here
+
 export function makeGetEdt(groupId, days = 14) {
 	return async () => {
 		const mode = 3;

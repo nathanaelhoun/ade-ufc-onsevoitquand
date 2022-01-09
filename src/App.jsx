@@ -15,12 +15,11 @@ import ReactTooltip from "react-tooltip";
 import "./App.scss";
 import GroupSelectorModal from "./components/GroupeSelector/GroupSelectorModal";
 import ControlledInput from "./components/miscellaneous/ControlledInput";
-import Footer from "./components/miscellaneous/Footer";
 import Title from "./components/miscellaneous/Title";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
 import LoadURLConfig from "./components/Share/LoadURLConfig";
+import { shareGroupsUrl } from "./components/Share/share";
 import queryClient from "./utils/queryClient";
-import { shareGroupsUrl } from "./utils/share";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 const useStyles = makeStyles((theme) =>
@@ -29,18 +28,17 @@ const useStyles = makeStyles((theme) =>
 			whiteSpace: "nowrap",
 			maxWidth: "none",
 		},
-		/// speed dial stuff
 	})
 );
 
 function App() {
+	const styles = useStyles();
+
 	const [config, setConfig] = useLocalStorage("config", { nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
-
-	const styles = useStyles();
 
 	const loadGroups = window.location.search !== "";
 
@@ -50,32 +48,26 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<header>
-				<Title />
+			<Title />
 
-				<div className="buttons">
-					<hr />
-
-					<div id="config">
-						<ControlledInput
-							id="config-weeks"
-							value={config.nbWeeks}
-							handleInput={(ev) =>
-								setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
-							}
-							data-tip="Nombre de semaines à afficher dans la comparaison"
-						>
-							<>Nombre de semaines</>
-						</ControlledInput>
-					</div>
+			<div className="buttons">
+				<div id="config">
+					<ControlledInput
+						id="config-weeks"
+						value={config.nbWeeks}
+						handleInput={(ev) =>
+							setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
+						}
+						data-tip="Nombre de semaines à afficher dans la comparaison"
+					>
+						<>Nombre de semaines</>
+					</ControlledInput>
 				</div>
-			</header>
+			</div>
 
 			<main>
 				<CompareSchedule groups={groups} config={config} />
 			</main>
-
-			<Footer />
 
 			<GroupSelectorModal
 				isOpen={isAddGroupModalOpened}
@@ -88,12 +80,13 @@ function App() {
 			/>
 
 			<Backdrop open={isMenuOpened} />
+
 			<SpeedDial
 				ariaLabel="Actions supplémentaires"
 				sx={{ position: "fixed", bottom: 16, right: 16 }}
 				icon={<GroupsIcon />}
 				onOpen={() => setIsMenuOpened(true)}
-				onClose={() => setIsMenuOpened(false)}
+				onClose={() => isAddGroupModalOpened || setIsMenuOpened(false)}
 				open={isMenuOpened}
 			>
 				<SpeedDialAction
@@ -123,7 +116,6 @@ function App() {
 
 			<Fab
 				color="primary"
-				aria-label="add"
 				sx={{ position: "fixed", bottom: 16, right: 80 }}
 				onClick={() => shareGroupsUrl(groups)}
 			>

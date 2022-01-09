@@ -1,10 +1,10 @@
-import React from "react";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import React from "react";
 
 import "./Title.scss";
 
 const Title = () => (
-	<div id="title">
+	<header id="title">
 		<div>
 			<h1>OnSeVoitQuand?</h1>
 			<EventAvailableIcon
@@ -38,7 +38,7 @@ const Title = () => (
 				au survol des noms de groupes raccourcis, les noms entiers apparaissent.
 			</span>
 		</p>
-	</div>
+	</header>
 );
 
 export default Title;

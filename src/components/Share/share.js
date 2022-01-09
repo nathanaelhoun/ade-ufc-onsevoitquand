@@ -1,11 +1,18 @@
 function shareWithOS(url) {
-	navigator
-		.share({
+	try {
+		navigator.share({
 			title: document.title,
 			text: "Quand est-ce qu'on peut se croiser ?",
 			url: url,
-		})
-		.catch((error) => console.error("Error sharing:", error));
+		});
+	} catch (error) {
+		console.error("Error sharing:", error);
+	}
+}
+
+function shareWithClipboard(url) {
+	navigator.clipboard.writeText(url);
+	alert("URL copiée dans le presse-papier");
 }
 
 export function shareGroupsUrl(groups) {
@@ -18,10 +25,9 @@ export function shareGroupsUrl(groups) {
 	}
 
 	if ("clipboard" in navigator) {
-		navigator.clipboard.writeText(url);
-		alert("URL copiée dans le presse-papier");
+		shareWithClipboard(url);
 		return;
 	}
 
-	// setUrl(url);
+	console.error("Impossible de partager l'URL, aucune méthode supportée.");
 }
