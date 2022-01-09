@@ -7,6 +7,7 @@ import { green, red } from "@mui/material/colors";
 import Fab from "@mui/material/Fab";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
+import { makeStyles, createStyles } from "@mui/styles";
 import { React, useState } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
@@ -22,12 +23,24 @@ import queryClient from "./utils/queryClient";
 import { shareGroupsUrl } from "./utils/share";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
+const useStyles = makeStyles((theme) =>
+	createStyles({
+		StaticTooltipLabel: {
+			whiteSpace: "nowrap",
+			maxWidth: "none",
+		},
+		/// speed dial stuff
+	})
+);
+
 function App() {
 	const [config, setConfig] = useLocalStorage("config", { nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 
 	const [isAddGroupModalOpened, setIsAddGroupModalOpened] = useState(false);
 	const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+	const styles = useStyles();
 
 	const loadGroups = window.location.search !== "";
 
@@ -84,20 +97,20 @@ function App() {
 				open={isMenuOpened}
 			>
 				<SpeedDialAction
-					icon={<GroupAddIcon />}
-					sx={{ color: green[500] }}
+					icon={<GroupAddIcon sx={{ color: green[500] }} />}
 					tooltipTitle="Ajouter un groupe"
-					// tooltipOpen
+					tooltipOpen
+					classes={{ staticTooltipLabel: styles.StaticTooltipLabel }}
 					onClick={() => setIsAddGroupModalOpened(true)}
 				/>
 
 				{Object.keys(groups).map((groupID) => (
 					<SpeedDialAction
 						key={groupID}
-						icon={<GroupRemoveIcon />}
-						sx={{ color: red[600] }}
-						// tooltipOpen
+						icon={<GroupRemoveIcon sx={{ color: red[600] }} />}
 						tooltipTitle={groups[groupID].join(" > ")}
+						tooltipOpen
+						classes={{ staticTooltipLabel: styles.StaticTooltipLabel }}
 						onClick={() => {
 							setGroups((oldGroups) => {
 								delete oldGroups[groupID];
