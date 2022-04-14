@@ -1,53 +1,7 @@
-@import "../../variables.module.scss";
-
-header {
-	padding: 1em;
-
-	@media screen and (min-width: $screen-desktop) {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-
-		#title {
-			margin-right: 3em;
-		}
-
-		#description {
-			margin-right: auto;
-		}
-	}
+#description {
+	margin: 1em;
 
 	a {
 		color: inherit;
-	}
-
-	#title {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-
-		* {
-			display: inline;
-		}
-
-		#icon {
-			margin-left: 10px;
-		}
-	}
-
-	#config {
-		display: flex;
-		flex-direction: column;
-		margin: 0 1em;
-
-		@media screen and (min-width: $screen-desktop) {
-			margin-right: 2em;
-		}
-
-		h3 {
-			text-align: center;
-			font-size: 1.2rem;
-			margin: 0.3em 0 0.5em 0;
-		}
 	}
 }

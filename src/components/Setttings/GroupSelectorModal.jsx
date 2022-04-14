@@ -51,9 +51,9 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 					minHeight: "25rem",
 				}}
 			>
-				<Box sx={{ mb: "1rem" }}>
-					Vous pouvez choisir un groupe qui en englobe plusieurs. Attention cependant : s'il est
-					trop haut dans la hiérarchie, l'application ne pourra pas charger les emplois du temps.
+				<Box sx={{ mt: "0" }} component="p">
+					Vous pouvez choisir un groupe qui englobe plusieurs sous-groupes. Attention cependant :
+					s'il en contient trop, l'application ne pourra pas charger les emplois du temps.
 				</Box>
 
 				{choices.map((group, i) => (

@@ -11,12 +11,6 @@ const Input = styled(MuiInput)`
 	width: 42px;
 `;
 
-const inputProps = {
-	step: 1,
-	min: 1,
-	max: 20,
-};
-
 const InputSlider = ({ title, icon, value, setValue }) => {
 	const handleSliderChange = (_event, newValue) => {
 		setValue(newValue);
@@ -46,7 +40,9 @@ const InputSlider = ({ title, icon, value, setValue }) => {
 						value={typeof value === "number" ? value : 0}
 						onChange={handleSliderChange}
 						aria-labelledby="input-slider"
-						{...inputProps}
+						step={1}
+						min={1}
+						max={6}
 					/>
 				</Grid>
 				<Grid item>
@@ -56,7 +52,8 @@ const InputSlider = ({ title, icon, value, setValue }) => {
 						onInput={handleInputChange}
 						onBlur={handleBlur}
 						inputProps={{
-							...inputProps,
+							step: 1,
+							min: 1,
 							type: "number",
 							"aria-labelledby": "input-slider",
 						}}

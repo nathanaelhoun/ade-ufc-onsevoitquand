@@ -1,22 +1,39 @@
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { AppBar, Toolbar, IconButton, Button, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
 import React from "react";
 
 import "./HeaderBar.scss";
 
 const HeaderBar = ({ openSettings }) => (
-	<header>
-		<div id="title">
-			<h1>OnSeVoitQuand?</h1>
-			<EventAvailableIcon
-				id="icon"
-				sx={{
-					height: "50px",
-					width: "50px",
-				}}
-				alt="Icône de calendrier"
-			/>
-		</div>
+	<>
+		<Box sx={{ flexGrow: 1 }} component="header">
+			<AppBar position="static">
+				<Toolbar>
+					<IconButton
+						size="large"
+						edge="start"
+						color="inherit"
+						aria-label="menu"
+						sx={{ mr: 2 }}
+						alt="Icône de calendrier"
+					>
+						<EventAvailableIcon />
+					</IconButton>
+
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						OnSeVoitQuand?
+					</Typography>
+
+					<IconButton color="inherit" onClick={openSettings}>
+						<SettingsIcon />
+					</IconButton>
+				</Toolbar>
+			</AppBar>
+		</Box>
+
 		<div id="description">
 			<p>
 				Trouver un créneau pour se voir entre étudiants de l'
@@ -47,11 +64,7 @@ const HeaderBar = ({ openSettings }) => (
 				</span>
 			</p>
 		</div>
-
-		<div id="config">
-			<button onClick={openSettings}>Paramètres</button>
-		</div>
-	</header>
+	</>
 );
 
 HeaderBar.propTypes = {

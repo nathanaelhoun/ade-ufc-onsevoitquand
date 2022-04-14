@@ -17,7 +17,7 @@ function App() {
 	const [config, setConfig] = useLocalStorage("config", { nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 
-	const [isSettingsModalOpened, setIsSettingsModalOpened] = useState(true);
+	const [isSettingsModalOpened, setIsSettingsModalOpened] = useState(false);
 
 	const loadGroups = window.location.search !== "";
 
