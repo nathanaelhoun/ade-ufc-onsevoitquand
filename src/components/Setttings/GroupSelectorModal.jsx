@@ -108,7 +108,7 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 				<Button onClick={clearAndClose} sx={{ ml: "1rem" }}>
 					<Typography>Annuler</Typography>
 				</Button>
-				<Button disabled={isLoading || choices.length === 0} onClick={validateAndClose}>
+				<Button disabled={choices.length === 0} onClick={validateAndClose}>
 					<Typography noWrap>Ajouter le groupe {choices[choices.length - 1]?.name}</Typography>
 				</Button>
 			</DialogActions>
@@ -139,7 +139,7 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 			id: currentID,
 			path: choices.map(({ name }) => name),
 		});
-		clearAndClose();
+		handleClose();
 	}
 };
 
