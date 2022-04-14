@@ -3,9 +3,8 @@ import { PropTypes } from "prop-types";
 import React from "react";
 
 import "./HeaderBar.scss";
-import ControlledInput from "./ControlledInput";
 
-const HeaderBar = ({ config, setConfig }) => (
+const HeaderBar = ({ openSettings }) => (
 	<header>
 		<div id="title">
 			<h1>OnSeVoitQuand?</h1>
@@ -50,24 +49,13 @@ const HeaderBar = ({ config, setConfig }) => (
 		</div>
 
 		<div id="config">
-			<h3>Configuration</h3>
-			<ControlledInput
-				id="config-weeks"
-				value={config.nbWeeks}
-				handleInput={(ev) => setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))}
-				data-tip="Nombre de semaines à afficher dans la comparaison"
-			>
-				<>Semaines à charger</>
-			</ControlledInput>
+			<button onClick={openSettings}>Paramètres</button>
 		</div>
 	</header>
 );
 
 HeaderBar.propTypes = {
-	config: PropTypes.shape({
-		nbWeeks: PropTypes.number,
-	}).isRequired,
-	setConfig: PropTypes.func,
+	openSettings: PropTypes.func,
 };
 
 export default HeaderBar;

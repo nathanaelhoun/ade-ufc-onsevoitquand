@@ -41,10 +41,10 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 			fullScreen={fullScreen}
 			open={isOpen}
 			onClose={handleClose}
-			aria-labelledby="responsive-dialog-title"
+			aria-labelledby="add-group-title"
 			fullWidth={true}
 		>
-			<DialogTitle id="responsive-dialog-title">Ajouter un groupe</DialogTitle>
+			<DialogTitle id="add-group-title">Ajouter un groupe</DialogTitle>
 
 			<DialogContent
 				style={{
