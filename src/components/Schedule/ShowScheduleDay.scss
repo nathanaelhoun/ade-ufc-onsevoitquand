@@ -3,58 +3,59 @@
 @import "../../variables.module.scss";
 
 table.schedule {
-  table-layout: fixed;
+	table-layout: fixed;
 
-  .head-row {
-    th > div {
-      width: 100%;
-      height: 5em;
-      display: flex;
-      flex-direction: column-reverse;
+	.head-row {
+		th > div {
+			width: 100%;
+			height: 5em;
+			display: flex;
+			flex-direction: column-reverse;
 
-      div {
-        direction: rtl;
-        text-align: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
+			div {
+				direction: rtl;
+				text-align: center;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
 
-  td,
-  th {
-    $padding: 0.2em;
-    padding-left: $padding;
-    padding-right: $padding;
+	td,
+	th {
+		$padding: 0.2em;
+		padding-left: $padding;
+		padding-right: $padding;
 
-    &.activity-item {
-      text-align: center;
-    }
+		&.activity-item {
+			text-align: center;
+		}
 
-    &.activity-item.available {
-      background-color: $available;
-    }
+		&.activity-item.available {
+			background-color: $available;
+		}
 
-    &.activity-item.not-available {
-      background-color: color.scale($not-available, $alpha: -30%);
-    }
+		&.activity-item.not-available {
+			background-color: color.scale($not-available, $alpha: -30%);
+			color: white;
+		}
 
-    .container {
-      display: flex;
-      height: calc(var(--rowspan, 1) * 22px);
+		.container {
+			display: flex;
+			height: calc(var(--rowspan, 1) * 22px);
 
-      div {
-        margin: auto;
-        width: 100%;
-        max-height: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
+			div {
+				margin: auto;
+				width: 100%;
+				max-height: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
 
-  .title-time {
-    width: 6ch;
-    text-align: right;
-  }
+	.title-time {
+		width: 6ch;
+		text-align: right;
+	}
 }

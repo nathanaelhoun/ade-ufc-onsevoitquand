@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.6",
+    "@mui/styles": "^5.2.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,13 +17,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.24.3",
-    "react-scripts": "4.0.3",
     "react-select": "^5.0.0",
     "react-tooltip": "^4.2.21",
     "sass": "^1.41.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "prepare": "husky install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -29,7 +34,8 @@
     "format:write": "prettier --write ."
   },
   "prettier": {
-    "printWidth": 100
+    "printWidth": 100,
+    "useTabs": true
   },
   "browserslist": {
     "production": [
@@ -46,6 +52,13 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "http-proxy-middleware": "^2.0.1",
-    "prettier": "^2.4.1"
+    "husky": "^7.0.4",
+    "prettier": "^2.4.1",
+    "react-scripts": "5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "nth-check@<2.0.1": ">=2.0.1"
+    }
   }
 }

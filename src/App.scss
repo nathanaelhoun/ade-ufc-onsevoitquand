@@ -1,110 +1,96 @@
 @import "./variables.module.scss";
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 :root {
-  --text-color: #{$fg-color};
-  --link-color: #{$link-color};
-  --bg-color: #{$bg-color};
+	--text-color: #{$fg-color};
+	--link-color: #{$link-color};
+	--bg-color: #{$bg-color};
 
-  @media (prefers-color-scheme: dark) {
-    --text-color: #{$fg-color-dark};
-    --link-color: #{$link-color-dark};
-    --bg-color: #{$bg-color-dark};
-  }
+	@media (prefers-color-scheme: dark) {
+		--text-color: #{$fg-color-dark};
+		--link-color: #{$link-color-dark};
+		--bg-color: #{$bg-color-dark};
+	}
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  margin: 0;
-  min-height: 100vh;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	position: relative;
+	margin: 0;
+	min-height: 100vh;
 
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  a {
-    color: var(--link-color);
-  }
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	a {
+		color: var(--link-color);
+	}
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-header {
-  padding: 1.2em;
-
-  @media screen and (min-width: $screen-desktop) {
-    #title {
-      width: 30%;
-    }
-
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .buttons {
-    @media screen and (min-width: $screen-desktop) {
-      min-width: 60%;
-    }
-
-    display: flex;
-    flex-direction: column;
-
-    & > * {
-      margin: 0.5em;
-    }
-
-    button {
-      min-height: 2.5em;
-    }
-  }
-}
-
-$footer-height: 3em;
+$footer-height: 5em;
 
 #root {
-  padding-bottom: $footer-height;
+	padding-bottom: $footer-height;
 }
 
 #config {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 
-  .config-item {
-    display: flex;
-    align-items: center;
+	.config-item {
+		display: flex;
+		align-items: center;
 
-    @media not screen and (min-width: $screen-desktop) {
-      margin: 1em auto;
-    }
-  }
+		@media not screen and (min-width: $screen-desktop) {
+			margin: 1em auto;
+		}
+	}
 }
 
 footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  padding: 0.5em;
-  height: $footer-height;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding: 0.5em;
+	height: $footer-height;
 
-  display: flex;
-  align-items: center;
-  align-content: center;
+	display: flex;
+	align-items: center;
+	align-content: center;
 
-  * {
-    margin: auto;
-    text-align: center;
-  }
+	@media not screen and (min-width: $screen-desktop) {
+		flex-direction: column;
+	}
+
+	* {
+		margin: auto;
+		text-align: center;
+	}
 }
 
 .error {
-  color: red;
-  white-space: pre-wrap;
+	color: red;
+	white-space: pre-wrap;
+}
+
+.mobile {
+	display: none;
+}
+@media not screen and (min-width: $screen-desktop) {
+	.desktop {
+		display: none;
+	}
+	.mobile {
+		display: unset;
+	}
 }

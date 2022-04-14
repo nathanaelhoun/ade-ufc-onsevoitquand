@@ -1,13 +1,16 @@
+import { PropTypes } from "prop-types";
 import React from "react";
 
-import "./Loading.scss";
+const Loading = ({ msg = "Chargement..." }) => {
+	return (
+		<div style={{ textAlign: "center" }}>
+			<>{msg}</>
+		</div>
+	);
+};
 
-const Loading = () => {
-  return (
-    <div className="loading">
-      <>Chargement...</>
-    </div>
-  );
+Loading.propTypes = {
+	msg: PropTypes.string,
 };
 
 export default Loading;
