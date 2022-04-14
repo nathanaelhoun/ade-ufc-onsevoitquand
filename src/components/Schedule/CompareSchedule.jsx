@@ -51,7 +51,9 @@ const CompareSchedule = ({ groups, config }) => {
 	);
 
 	if (!groups || Object.keys(groups).length === 0) {
-		return <p style={{ textAlign: "center" }}>Commencez par ajouter un groupe en bas à droite.</p>;
+		return (
+			<p style={{ textAlign: "center" }}>Commencez par ajouter un groupe dans les paramètres.</p>
+		);
 	}
 
 	if (!byDays || Object.keys(byDays).length === 0) {

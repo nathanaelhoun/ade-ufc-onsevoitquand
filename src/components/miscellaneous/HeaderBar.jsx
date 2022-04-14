@@ -57,7 +57,7 @@ const HeaderBar = ({ openSettings }) => (
 			<p className="help">
 				Conseil&nbsp;:{" "}
 				<span className="mobile">
-					un appui long sur les noms de groupe raccourcis fait apparaître le nom entier.
+					un appui sur les noms de groupe raccourcis fait apparaître le nom entier.
 				</span>
 				<span className="desktop">
 					au survol des noms de groupes raccourcis, les noms entiers apparaissent.
