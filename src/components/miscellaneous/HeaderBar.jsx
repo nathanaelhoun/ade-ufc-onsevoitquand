@@ -1,6 +1,6 @@
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { AppBar, Toolbar, IconButton, Button, Typography } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
 import React from "react";
