@@ -10,9 +10,9 @@ const ControlledInput = ({ id, value, handleInput, children, ...props }) => {
 				id={id}
 				value={value}
 				onChange={handleInput}
-				style={{ maxWidth: "15ch" }}
+				style={{ maxWidth: "10ch" }}
 			/>
-			<label style={{ marginLeft: "0.2em" }} htmlFor={id}>
+			<label style={{ marginLeft: "1ch" }} htmlFor={id}>
 				{children}
 			</label>
 		</div>

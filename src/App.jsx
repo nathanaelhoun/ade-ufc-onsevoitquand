@@ -14,8 +14,7 @@ import ReactTooltip from "react-tooltip";
 
 import "./App.scss";
 import GroupSelectorModal from "./components/GroupeSelector/GroupSelectorModal";
-import ControlledInput from "./components/miscellaneous/ControlledInput";
-import Title from "./components/miscellaneous/Title";
+import HeaderBar from "./components/miscellaneous/HeaderBar";
 import CompareSchedule from "./components/Schedule/CompareSchedule";
 import LoadURLConfig from "./components/Share/LoadURLConfig";
 import { shareGroupsUrl } from "./components/Share/share";
@@ -48,22 +47,7 @@ function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Title />
-
-			<div className="buttons">
-				<div id="config">
-					<ControlledInput
-						id="config-weeks"
-						value={config.nbWeeks}
-						handleInput={(ev) =>
-							setConfig((old) => ({ ...old, nbWeeks: parseInt(ev.target.value) }))
-						}
-						data-tip="Nombre de semaines à afficher dans la comparaison"
-					>
-						<>Nombre de semaines</>
-					</ControlledInput>
-				</div>
-			</div>
+			<HeaderBar config={config} setConfig={setConfig} />
 
 			<main>
 				<CompareSchedule groups={groups} config={config} />

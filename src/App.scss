@@ -36,36 +36,6 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-header {
-	padding: 1.2em;
-
-	@media screen and (min-width: $screen-desktop) {
-		#title {
-			width: 30%;
-		}
-
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.buttons {
-		@media screen and (min-width: $screen-desktop) {
-			min-width: 60%;
-		}
-
-		display: flex;
-		flex-direction: column;
-
-		& > * {
-			margin: 0.5em;
-		}
-
-		button {
-			min-height: 2.5em;
-		}
-	}
-}
-
 $footer-height: 5em;
 
 #root {
