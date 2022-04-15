@@ -150,7 +150,7 @@ const ShowScheduleDay = ({ dayInformations, groups }) => {
 							data-tip={groups[groupID].join("<br/>")}
 						>
 							<div>
-								<div>{groups[groupID].join(" > ").slice(-30)}</div>
+								<div>{groups[groupID].slice(-2).join(" > ")}</div>
 							</div>
 						</th>
 					))}

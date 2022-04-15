@@ -1,9 +1,9 @@
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import GroupIcon from "@mui/icons-material/Group";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
-import GroupIcon from "@mui/icons-material/Group";
 import React from "react";
 
 import "./HeaderBar.scss";
@@ -59,10 +59,10 @@ const HeaderBar = ({ openSettings }) => (
 			<p className="help">
 				Conseil&nbsp;:{" "}
 				<span className="mobile">
-					un appui sur les noms de groupe raccourcis fait apparaître le nom entier.
+					un appui sur les noms de groupe ellipsés fait apparaître le nom entier.
 				</span>
 				<span className="desktop">
-					au survol des noms de groupes raccourcis, les noms entiers apparaissent.
+					au survol des noms de groupes ellipsés, les noms entiers apparaissent.
 				</span>
 			</p>
 		</div>
