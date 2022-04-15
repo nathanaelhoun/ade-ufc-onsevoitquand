@@ -6,6 +6,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { React, useState, useMemo } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
+import Button from "@mui/material/Button";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 import "./App.scss";
 import HeaderBar from "./components/miscellaneous/HeaderBar";
@@ -36,6 +38,18 @@ function App() {
 
 	const loadGroups = window.location.search !== "";
 
+	const content =
+		!groups || Object.keys(groups).length === 0 ? (
+			<div style={{ textAlign: "center", margin: "3em 1em" }}>
+				<p>Commencez par ajouter un groupe dans les paramètres.</p>
+				<Button onClick={() => setIsSettingsModalOpened(true)} endIcon={<GroupAddIcon />}>
+					Ajouter un groupe
+				</Button>
+			</div>
+		) : (
+			<CompareSchedule groups={groups} config={config} />
+		);
+
 	if (loadGroups) {
 		return <LoadURLConfig originalConfig={config} originalGroups={groups} />;
 	}
@@ -46,9 +60,7 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<HeaderBar openSettings={() => setIsSettingsModalOpened(true)} />
 
-				<main>
-					<CompareSchedule groups={groups} config={config} />
-				</main>
+				<main>{content}</main>
 
 				<SettingsDialog
 					open={isSettingsModalOpened}

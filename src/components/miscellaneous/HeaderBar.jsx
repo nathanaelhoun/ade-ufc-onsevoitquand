@@ -3,6 +3,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { PropTypes } from "prop-types";
+import GroupIcon from "@mui/icons-material/Group";
 import React from "react";
 
 import "./HeaderBar.scss";
@@ -28,6 +29,7 @@ const HeaderBar = ({ openSettings }) => (
 					</Typography>
 
 					<IconButton color="inherit" onClick={openSettings}>
+						<GroupIcon sx={{ mr: 1.5 }} />
 						<SettingsIcon />
 					</IconButton>
 				</Toolbar>

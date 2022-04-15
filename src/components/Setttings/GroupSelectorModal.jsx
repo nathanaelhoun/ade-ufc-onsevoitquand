@@ -52,7 +52,7 @@ const GroupSelectorModal = ({ isOpen, handleClose, initialID, addGroup }) => {
 				}}
 			>
 				<Box sx={{ mt: "0" }} component="p">
-					Vous pouvez choisir un groupe qui englobe plusieurs sous-groupes. Attention cependant :
+					Vous pouvez choisir un groupe qui englobe plusieurs sous-groupes. Attention cependant&nbsp;:
 					s'il en contient trop, l'application ne pourra pas charger les emplois du temps.
 				</Box>
 

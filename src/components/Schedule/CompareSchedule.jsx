@@ -50,12 +50,6 @@ const CompareSchedule = ({ groups, config }) => {
 		allResponses.map((response) => response.data)
 	);
 
-	if (!groups || Object.keys(groups).length === 0) {
-		return (
-			<p style={{ textAlign: "center" }}>Commencez par ajouter un groupe dans les paramètres.</p>
-		);
-	}
-
 	if (!byDays || Object.keys(byDays).length === 0) {
 		return <p style={{ textAlign: "center" }}>Aucun cours n'a été trouvé pour cette période.</p>;
 	}
