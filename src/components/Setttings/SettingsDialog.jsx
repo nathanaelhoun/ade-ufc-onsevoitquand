@@ -1,7 +1,10 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import { IconButton, List, ListItem } from "@mui/material";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Typography, IconButton, List, ListItem } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Button from "@mui/material/Button";
+import { red } from "@mui/material/colors";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -51,18 +54,34 @@ const SettingsDialog = ({ open, onClose, config, setConfig, groups, setGroups })
 								<ListItem
 									key={groupID}
 									secondaryAction={
-										<IconButton edge="end" aria-label="delete">
+										<IconButton
+											edge="end"
+											aria-label="delete"
+											onClick={() => {
+												setGroups((oldGroups) => {
+													delete oldGroups[groupID];
+													return { ...oldGroups };
+												});
+											}}
+											sx={{
+												"&:hover": { color: red[500] },
+												"&:active": { color: red[500] },
+											}}
+										>
 											<DeleteIcon />
 										</IconButton>
 									}
-									onClick={() => {
-										setGroups((oldGroups) => {
-											delete oldGroups[groupID];
-											return { ...oldGroups };
-										});
-									}}
 								>
-									<div>{groups[groupID].join(" > ")}</div>
+									<Breadcrumbs
+										maxItems={3}
+										aria-label="breadcrumb"
+										separator={<NavigateNextIcon fontSize="small" />}
+										component="div"
+									>
+										{groups[groupID].map((el) => (
+											<Typography key={el}>{el}</Typography>
+										))}
+									</Breadcrumbs>
 								</ListItem>
 							))}
 							<ListItem>
