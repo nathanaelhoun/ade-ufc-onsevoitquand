@@ -1,6 +1,9 @@
 import ShareIcon from "@mui/icons-material/Share";
+import CssBaseline from "@mui/material/CssBaseline";
 import Fab from "@mui/material/Fab";
-import { React, useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { React, useState, useMemo } from "react";
 import { QueryClientProvider } from "react-query";
 import ReactTooltip from "react-tooltip";
 
@@ -14,10 +17,22 @@ import queryClient from "./utils/queryClient";
 import { useLocalStorage } from "./utils/useLocalStorage";
 
 function App() {
+	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
 	const [config, setConfig] = useLocalStorage("config", { nbWeeks: 2 });
 	const [groups, setGroups] = useLocalStorage("saved-groups-v2", {});
 
 	const [isSettingsModalOpened, setIsSettingsModalOpened] = useState(false);
+
+	const theme = useMemo(
+		() =>
+			createTheme({
+				palette: {
+					mode: prefersDarkMode ? "dark" : "light",
+				},
+			}),
+		[prefersDarkMode]
+	);
 
 	const loadGroups = window.location.search !== "";
 
@@ -26,32 +41,35 @@ function App() {
 	}
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<HeaderBar openSettings={() => setIsSettingsModalOpened(true)} />
+		<ThemeProvider theme={theme}>
+			<CssBaseline enableColorScheme />
+			<QueryClientProvider client={queryClient}>
+				<HeaderBar openSettings={() => setIsSettingsModalOpened(true)} />
 
-			<main>
-				<CompareSchedule groups={groups} config={config} />
-			</main>
+				<main>
+					<CompareSchedule groups={groups} config={config} />
+				</main>
 
-			<SettingsDialog
-				open={isSettingsModalOpened}
-				onClose={() => setIsSettingsModalOpened(false)}
-				config={config}
-				groups={groups}
-				setConfig={setConfig}
-				setGroups={setGroups}
-			/>
+				<SettingsDialog
+					open={isSettingsModalOpened}
+					onClose={() => setIsSettingsModalOpened(false)}
+					config={config}
+					groups={groups}
+					setConfig={setConfig}
+					setGroups={setGroups}
+				/>
 
-			<Fab
-				color="primary"
-				sx={{ position: "fixed", bottom: 16, right: 16 }}
-				onClick={() => shareGroupsUrl(groups)}
-			>
-				<ShareIcon />
-			</Fab>
+				<Fab
+					color="primary"
+					sx={{ position: "fixed", bottom: 16, right: 16 }}
+					onClick={() => shareGroupsUrl(groups)}
+				>
+					<ShareIcon />
+				</Fab>
 
-			<ReactTooltip multiline effect="solid" />
-		</QueryClientProvider>
+				<ReactTooltip multiline effect="solid" />
+			</QueryClientProvider>
+		</ThemeProvider>
 	);
 }
 

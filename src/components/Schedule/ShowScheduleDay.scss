@@ -5,19 +5,17 @@
 table.schedule {
 	table-layout: fixed;
 
-	.head-row {
-		th > div {
-			width: 100%;
-			height: 5em;
-			display: flex;
-			flex-direction: column-reverse;
+	.head-row th > div {
+		width: 100%;
+		height: 5em;
+		display: flex;
+		flex-direction: column-reverse;
 
-			div {
-				direction: rtl;
-				text-align: center;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
+		div {
+			direction: rtl;
+			text-align: center;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 

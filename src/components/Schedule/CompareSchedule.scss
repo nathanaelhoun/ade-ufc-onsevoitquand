@@ -4,6 +4,8 @@
 	width: 100%;
 	--numCols: 5;
 
+	line-height: 1;
+
 	@media screen and (min-width: $screen-desktop) {
 		display: grid;
 		grid-template-columns: repeat(var(--numCols), 1fr);

@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = ({ msg = "Chargement..." }) => {
 	return (
-		<div style={{ textAlign: "center" }}>
+		<div style={{ textAlign: "center", marginTop: "1em" }}>
 			<>{msg}</>
 		</div>
 	);
