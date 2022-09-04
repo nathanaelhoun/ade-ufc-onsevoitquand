@@ -1,15 +1,18 @@
 env:
   browser: true
 parserOptions:
-  ecmaVersion: 2015
+  ecmaVersion: 2016
   sourceType: module
 extends:
-  - react-app
+  - "react-app"
   - "eslint:recommended"
   - "plugin:react/recommended"
 plugins:
   - react
   - import
+settings:
+  react:
+    version: detect
 rules:
   no-constant-condition: warn
   array-bracket-newline: warn

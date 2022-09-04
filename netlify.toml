@@ -4,3 +4,8 @@
   to = "https://sedna.univ-fcomte.fr/jsp/custom/ufc/:splat"
   status = 200
   force = true # COMMENT: ensure that we always redirect
+
+[build]
+  base = "/"
+  publish = "dist/"
+  command = "npm run build"
