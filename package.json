@@ -1,23 +1,7 @@
 {
   "name": "ade-ufc-onsevoitquand",
-  "version": "1.0.0",
+  "version": "1.1.0-dev",
   "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@fontsource/roboto": "^4.5.5",
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.6",
-    "@mui/system": "^5.6.1",
-    "axios": "^0.21.4",
-    "prop-types": "^15.7.2",
-    "query-string": "^7.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-query": "^3.24.3",
-    "react-tooltip": "^4.2.21",
-    "sass": "^1.41.1"
-  },
   "scripts": {
     "prepare": "husky install",
     "start": "react-scripts start",
@@ -29,6 +13,47 @@
     "lint:fix": "eslint --fix src/**/*.{js,jsx}",
     "format": "prettier --check .",
     "format:write": "prettier --write ."
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
+    "@mui/system": "^5.10.3",
+    "axios": "^0.27.2",
+    "prop-types": "^15.8.1",
+    "query-string": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.2",
+    "react-tooltip": "^4.2.21",
+    "sass": "^1.54.8"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.3",
+    "@mui/material": "^5.10.3",
+    "@mui/system": "^5.10.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "axios": "^0.27.2",
+    "eslint": "^8.23.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.31.6",
+    "http-proxy-middleware": "^2.0.6",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "query-string": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.2",
+    "react-scripts": "5.0.1",
+    "react-tooltip": "^4.2.21",
+    "sass": "^1.54.8"
   },
   "prettier": {
     "printWidth": 100,
@@ -45,16 +70,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "eslint": "^8.13.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-react": "^7.29.4",
-    "http-proxy-middleware": "^2.0.1",
-    "husky": "^7.0.4",
-    "prettier": "^2.4.1",
-    "react-scripts": "^5.0.1"
   }
 }
