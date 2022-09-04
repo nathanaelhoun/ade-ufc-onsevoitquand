@@ -1,5 +1,5 @@
 *.json
 public/
-build/
+dist/
 node_modules/
 *.md
