@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Typography, IconButton, List, ListItem } from "@mui/material";
+import { Typography, IconButton, List, ListItem, FormControlLabel, Switch } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Button from "@mui/material/Button";
 import { red } from "@mui/material/colors";
@@ -43,6 +43,21 @@ const SettingsDialog = ({ open, onClose, config, setConfig, groups, setGroups })
 							icon={null}
 							value={config.nbWeeks}
 							setValue={(value) => setConfig((old) => ({ ...old, nbWeeks: value }))}
+						/>
+					</div>
+
+					<div>
+						<FormControlLabel
+							labelPlacement="start"
+							control={
+								<Switch
+									checked={config.showOneSchedule}
+									onChange={(event) =>
+										setConfig((old) => ({ ...old, showOneSchedule: event.target.checked }))
+									}
+								/>
+							}
+							label="Afficher comme un seul emploi du temps"
 						/>
 					</div>
 
@@ -116,6 +131,7 @@ SettingsDialog.propTypes = {
 	onClose: PropTypes.func,
 	config: PropTypes.shape({
 		nbWeeks: PropTypes.number,
+		showOneSchedule: PropTypes.bool,
 	}).isRequired,
 	setConfig: PropTypes.func.isRequired,
 	groups: PropTypes.object.isRequired,

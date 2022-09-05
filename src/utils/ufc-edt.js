@@ -3,7 +3,7 @@ import axios from "axios";
 // To everyone that will one day open this file: I'm really sorry for this code.
 // Explore the API and you will understand the processing done here
 
-export function makeGetEdt(groupId, days = 14) {
+export function makeGetEdt(groupIDs, days = 14) {
 	return async () => {
 		const mode = 3;
 		const color = 1;
@@ -11,7 +11,9 @@ export function makeGetEdt(groupId, days = 14) {
 
 		const rawData = (
 			await axios.get(
-				`/api/v1/wmplanif.jsp?id=${groupId}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
+				`/api/v1/wmplanif.jsp?id=${groupIDs.join(
+					","
+				)}&jours=${days}&mode=${mode}&color=${color}&sports=${sports}`
 			)
 		).data;
 
@@ -22,7 +24,6 @@ export function makeGetEdt(groupId, days = 14) {
 		}
 
 		const byDay = {};
-
 		rawData
 			.split("*date*;")
 			.filter((line) => /\S/.test(line)) // remove empty lines
@@ -98,33 +99,4 @@ export function makeGetHierarchyToSubgroup(subGroupId) {
 	}
 
 	return async () => ({ [subGroupId]: await recursiveRequest(subGroupId) });
-}
-
-export function compareDates(date1, date2) {
-	const frenchMonths = [
-		"Septembre",
-		"Octobre",
-		"Novembre",
-		"Décembre",
-		"Janvier",
-		"Février",
-		"Mars",
-		"Avril",
-		"Mai",
-		"Juin",
-		"Juillet",
-		"Août",
-	];
-
-	const [, day1, month1] = date1.split(" ");
-	const [, day2, month2] = date2.split(" ");
-
-	const monthsDiff =
-		frenchMonths.findIndex((el) => el === month1) - frenchMonths.findIndex((el) => el === month2);
-
-	if (monthsDiff !== 0) {
-		return monthsDiff;
-	}
-
-	return day1 - day2;
 }

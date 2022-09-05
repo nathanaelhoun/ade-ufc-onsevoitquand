@@ -1,0 +1,19 @@
+@use "sass:color";
+
+@import "../../variables.module.scss";
+
+.show-one-schedule {
+	margin: 1em;
+}
+
+.one-day {
+	h3 {
+		margin: 0;
+	}
+
+	.when {
+		display: inline-block;
+		min-width: 12ch;
+		text-align: right;
+	}
+}

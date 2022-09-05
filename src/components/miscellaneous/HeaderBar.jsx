@@ -8,7 +8,7 @@ import React from "react";
 
 import "./HeaderBar.scss";
 
-const HeaderBar = ({ openSettings }) => (
+const HeaderBar = ({ openSettings, config }) => (
 	<>
 		<Box sx={{ flexGrow: 1 }} component="header">
 			<AppBar position="static">
@@ -58,12 +58,18 @@ const HeaderBar = ({ openSettings }) => (
 
 			<p className="help">
 				Conseil&nbsp;:{" "}
-				<span className="mobile">
-					un appui sur les noms de groupe ellipsés fait apparaître le nom entier.
-				</span>
-				<span className="desktop">
-					au survol des noms de groupes ellipsés, les noms entiers apparaissent.
-				</span>
+				{config.showOneSchedule ? (
+					<>tu peux repasser en mode comparaison via les paramètres en haut à droite.</>
+				) : (
+					<>
+						<span className="mobile">
+							un appui sur les noms de groupe ellipsés fait apparaître le nom entier.
+						</span>
+						<span className="desktop">
+							au survol des noms de groupes ellipsés, les noms entiers apparaissent.
+						</span>
+					</>
+				)}
 			</p>
 		</div>
 	</>
@@ -71,6 +77,10 @@ const HeaderBar = ({ openSettings }) => (
 
 HeaderBar.propTypes = {
 	openSettings: PropTypes.func,
+	config: PropTypes.shape({
+		nbWeeks: PropTypes.number,
+		showOneSchedule: PropTypes.bool,
+	}).isRequired,
 };
 
 export default HeaderBar;
