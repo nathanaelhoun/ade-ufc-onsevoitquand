@@ -1,6 +1,6 @@
 {
   "name": "ade-ufc-onsevoitquand",
-  "version": "1.1.0-dev",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "prepare": "husky install",
