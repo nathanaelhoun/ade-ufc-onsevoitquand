@@ -3,36 +3,19 @@ import React from "react";
 import { useQueries } from "react-query";
 
 import "./CompareSchedule.scss";
-
-import { compareDates, makeGetEdt } from "../../utils/ufc-edt";
+import { makeGetEdt } from "../../utils/ufc-edt";
+import { regroupByDay } from "../../utils/ufc-edt-manipulation";
 import variables from "../../variables.module.scss";
 import Error from "../miscellaneous/Error";
 import Loading from "../miscellaneous/Loading";
 
 import ShowScheduleDay from "./ShowScheduleDay";
 
-function regroupByDay(groups, data) {
-	const days = [...new Set(data.flatMap(Object.keys))].sort(compareDates);
-
-	return days.reduce((acc, day) => {
-		return {
-			...acc,
-			[day]: data.reduce(
-				(acc, groupSchedule, index) => ({
-					...acc,
-					[Object.keys(groups)[index]]: groupSchedule[day],
-				}),
-				{}
-			),
-		};
-	}, {});
-}
-
 const CompareSchedule = ({ groups, config }) => {
 	const allResponses = useQueries(
 		Object.keys(groups).map((groupID) => ({
 			queryKey: ["schedule", groupID, config.nbWeeks],
-			queryFn: makeGetEdt(groupID, config.nbWeeks * 7),
+			queryFn: makeGetEdt([groupID], config.nbWeeks * 7),
 			refetchOnMount: false,
 		}))
 	);
@@ -78,6 +61,7 @@ CompareSchedule.propTypes = {
 	day: PropTypes.string,
 	config: PropTypes.shape({
 		nbWeeks: PropTypes.number,
+		showOneSchedule: PropTypes.bool,
 	}),
 };
 
