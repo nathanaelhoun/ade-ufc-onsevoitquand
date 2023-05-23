@@ -6,7 +6,10 @@ An easy way to find when you can meet your mates in the University of Franche-Co
 
 Trouver un créneau pour se voir entre étudiants de l'UFC.
 
-## Development
+> **Warning**
+> Le développement sur ce projet est maintenant en pause, car je ne l'utilise plus personnellement. Cependant, si vous ressentez le besoin d'une autre fonctionnalité, ou souhaitez contribuer au code, vous pouvez me contacter via [mon site web](https://nathanaelhoun.fr).
+
+## Local Development
 
 Run `npm install` then `npm start` to launch the development version, powered by [Create React App](https://create-react-app.dev/)
 
